@@ -29,6 +29,7 @@ from .search_results import search_results
 from .stat_card import stat_card
 from .tab_state_wrapper import tab_state_wrapper
 from .tag_manager import TagItem, tag_manager
+from .timeline_card import timeline_card
 from .token_pill import Token, token_pill
 from .user_actions import UserAction, user_actions
 from .user_nav import user_nav
@@ -71,6 +72,7 @@ __all__ = [
     "stat_card",
     "tab_state_wrapper",
     "tag_manager",
+    "timeline_card",
     "token_pill",
     "user_actions",
     "user_nav",

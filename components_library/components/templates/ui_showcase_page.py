@@ -6,6 +6,7 @@ from typing import Any
 
 from fasthtml.common import Div
 
+from ...design_system import get_theme_css
 from ..atoms import (
     accordion,
     accordion_item,
@@ -94,6 +95,7 @@ from ..molecules import (
     stat_card,
     tab_state_wrapper,
     tag_manager,
+    timeline_card,
     token_pill,
     user_actions,
     user_nav,
@@ -104,10 +106,14 @@ from ..organisms import (
     alphabet_browser,
     articles_search,
     data_table,
+    feature_card,
     header,
+    hero_section,
     navigation,
     notifications,
     page_header,
+    profile_card,
+    timeline_view,
 )
 from .auth_page_layout import auth_page_layout
 from .base_page import base_page
@@ -613,6 +619,28 @@ def _molecules_showcase() -> Any:
                 ),
             ),
             _showcase_card(
+                "Timeline Card",
+                hstack(
+                    timeline_card(
+                        title="Phase 1",
+                        item_type="Planning",
+                        status="Complete",
+                        sequence_position="Start",
+                        href="#",
+                    ),
+                    timeline_card(
+                        title="Phase 2",
+                        item_type="Development",
+                        status="In Progress",
+                        sequence_position="Current",
+                        image_url="https://picsum.photos/280/400",
+                        href="#",
+                    ),
+                    gap=3,
+                    style="flex-wrap: wrap;",
+                ),
+            ),
+            _showcase_card(
                 "Breadcrumbs",
                 breadcrumbs(
                     [
@@ -1023,6 +1051,73 @@ def _organisms_showcase() -> Any:
                     search_url="/api/articles/search",
                 ),
             ),
+            _showcase_card(
+                "Profile Card",
+                profile_card(
+                    user={
+                        "name": "Jane Doe",
+                        "email": "jane.doe@example.com",
+                        "picture": "https://i.pravatar.cc/150?u=jane",
+                    }
+                ),
+            ),
+            _showcase_card(
+                "Hero Section",
+                hero_section(
+                    headline="Build Amazing Apps",
+                    subheadline="Create stunning user interfaces with our component library.",
+                    cta_text="Get Started",
+                    cta_link="#",
+                ),
+            ),
+            _showcase_card(
+                "Feature Card",
+                hstack(
+                    feature_card(
+                        title="Fast Development",
+                        description="Build UIs quickly with pre-built components.",
+                        icon="⚡",
+                        progress=75,
+                    ),
+                    feature_card(
+                        title="Consistent Design",
+                        description="Maintain design consistency across your app.",
+                        icon="🎨",
+                        progress=90,
+                    ),
+                    gap=3,
+                    style="flex-wrap: wrap;",
+                ),
+            ),
+            _showcase_card(
+                "Timeline View",
+                timeline_view(
+                    items_data=[
+                        {
+                            "id": "1",
+                            "title": "Phase 1: Discovery",
+                            "item_type": "Research",
+                            "status": "Complete",
+                            "sequence_position": "Start",
+                        },
+                        {
+                            "id": "2",
+                            "title": "Phase 2: Development",
+                            "item_type": "Implementation",
+                            "status": "In Progress",
+                            "sequence_position": "Current",
+                        },
+                        {
+                            "id": "3",
+                            "title": "Phase 3: Launch",
+                            "item_type": "Deployment",
+                            "status": "Planning",
+                            "sequence_position": "Next",
+                        },
+                    ],
+                    href_template="/phases/{id}",
+                ),
+            ),
             gap=4,
         ),
         open=True,
@@ -1173,12 +1268,16 @@ def _templates_showcase() -> Any:
     )
 
 
-def ui_showcase_page(title: str = "Component Library Showcase") -> Any:
+def ui_showcase_page(
+    title: str = "Component Library Showcase",
+    theme_id: str | None = None,
+) -> Any:
     """
     Comprehensive UI showcase demonstrating all components.
 
     Args:
         title: Page title
+        theme_id: Optional theme ID to apply (e.g., "space", "ocean", "light")
 
     Returns:
         Complete HTML page with UI showcase
@@ -1215,4 +1314,9 @@ def ui_showcase_page(title: str = "Component Library Showcase") -> Any:
         style="max-width: 64rem; margin: 0 auto; padding: 2rem;",
     )
 
-    return base_page(content, title=title)
+    # Generate theme CSS if a theme is specified
+    extra_head = None
+    if theme_id:
+        extra_head = f"<style>{get_theme_css(theme_id)}</style>"
+
+    return base_page(content, title=title, extra_head=extra_head)

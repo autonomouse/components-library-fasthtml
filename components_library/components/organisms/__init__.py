@@ -10,10 +10,12 @@ from .articles_search import (
 )
 from .data_table import data_table
 from .header import header
+from .marketing import feature_card, hero_section
 from .navigation import navigation
 from .notifications import NotificationItem, NotificationTag, notifications
 from .page_header import page_header
 from .profile import profile_card
+from .timeline_view import timeline_view
 
 __all__ = [
     # Data classes
@@ -26,10 +28,13 @@ __all__ = [
     "articles_search",
     "concept_suggestions_partial",
     "data_table",
+    "feature_card",
     "header",
+    "hero_section",
     "navigation",
     "notifications",
     "page_header",
     "profile_card",
     "selected_tokens_partial",
+    "timeline_view",
 ]
