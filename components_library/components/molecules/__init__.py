@@ -14,6 +14,7 @@ from .file_upload_progress import file_upload_progress
 from .filter_bar import filter_bar
 from .filter_panel import FilterGroup, filter_panel
 from .footer import footer
+from .form_card_select import form_card_select
 from .form_modal import form_modal
 from .htmx_file_dropzone import htmx_file_dropzone
 from .htmx_tag_manager import htmx_tag_manager
@@ -30,6 +31,7 @@ from .stat_card import stat_card
 from .tab_state_wrapper import tab_state_wrapper
 from .tag_manager import TagItem, tag_manager
 from .timeline_card import timeline_card
+from .timeline_slider import timeline_slider
 from .token_pill import Token, token_pill
 from .user_actions import UserAction, user_actions
 from .user_nav import user_nav
@@ -57,6 +59,7 @@ __all__ = [
     "filter_bar",
     "filter_panel",
     "footer",
+    "form_card_select",
     "form_modal",
     "htmx_file_dropzone",
     "htmx_pagination",
@@ -73,6 +76,7 @@ __all__ = [
     "tab_state_wrapper",
     "tag_manager",
     "timeline_card",
+    "timeline_slider",
     "token_pill",
     "user_actions",
     "user_nav",
