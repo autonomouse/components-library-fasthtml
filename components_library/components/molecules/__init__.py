@@ -3,9 +3,13 @@
 from .action_card import action_card
 from .auth_form import auth_form
 from .breadcrumbs import BreadcrumbItem, breadcrumbs
+from .completion_circle import completion_circle
+from .dashboard_nav_card import dashboard_nav_card
+from .dashboard_stat_card import dashboard_stat_card
 from .date_range_inputs import date_range_inputs
 from .detail_row import detail_row
 from .details_section import details_section
+from .discrete_slider import discrete_slider
 from .enhanced_search_bar import enhanced_search_bar
 from .error_fallback import error_fallback
 from .favorite_button import favorite_button
@@ -31,7 +35,6 @@ from .stat_card import stat_card
 from .tab_state_wrapper import tab_state_wrapper
 from .tag_manager import TagItem, tag_manager
 from .timeline_card import timeline_card
-from .timeline_slider import timeline_slider
 from .token_pill import Token, token_pill
 from .user_actions import UserAction, user_actions
 from .user_nav import user_nav
@@ -48,9 +51,13 @@ __all__ = [
     "action_card",
     "auth_form",
     "breadcrumbs",
+    "completion_circle",
+    "dashboard_nav_card",
+    "dashboard_stat_card",
     "date_range_inputs",
     "detail_row",
     "details_section",
+    "discrete_slider",
     "enhanced_search_bar",
     "error_fallback",
     "favorite_button",
@@ -76,7 +83,6 @@ __all__ = [
     "tab_state_wrapper",
     "tag_manager",
     "timeline_card",
-    "timeline_slider",
     "token_pill",
     "user_actions",
     "user_nav",

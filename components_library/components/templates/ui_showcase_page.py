@@ -69,9 +69,13 @@ from ..molecules import (
     action_card,
     auth_form,
     breadcrumbs,
+    completion_circle,
+    dashboard_nav_card,
+    dashboard_stat_card,
     date_range_inputs,
     detail_row,
     details_section,
+    discrete_slider,
     enhanced_search_bar,
     error_fallback,
     favorite_button,
@@ -597,10 +601,19 @@ def _molecules_showcase() -> Any:
             ),
             _showcase_card(
                 "Nav Card",
-                nav_card(
-                    "Navigation",
-                    "A link to another page",
-                    href="/example",
+                hstack(
+                    nav_card(
+                        "Navigation",
+                        "A link to another page",
+                        href="/example",
+                    ),
+                    dashboard_nav_card(
+                        "Dashboard Nav",
+                        "Fancy neon card for dashboard nav",
+                        href="#",
+                        icon_content=Div("🚀", style="font-size: 2rem"),
+                    ),
+                    gap=3,
                 ),
             ),
             _showcase_card(
@@ -614,9 +627,20 @@ def _molecules_showcase() -> Any:
                         gradient_start="#f59e0b",
                         gradient_end="#ef4444",
                     ),
+                    dashboard_stat_card(
+                        "Neon Stat",
+                        "450",
+                        total="500",
+                        icon=Div("✨", style="font-size: 1.5rem"),
+                        progress_value=90,
+                    ),
                     gap=3,
                     style="flex-wrap: wrap;",
                 ),
+            ),
+            _showcase_card(
+                "Completion Circle",
+                completion_circle("Book 1", percentage=45, subtitle="Draft Completion"),
             ),
             _showcase_card(
                 "Timeline Card",
@@ -773,6 +797,15 @@ def _molecules_showcase() -> Any:
                         {"id": 2, "name": "Second Result Item"},
                     ],
                     query="result",
+                ),
+            ),
+            _showcase_card(
+                "Discrete Selection Slider",
+                discrete_slider(
+                    "demo_slider",
+                    value="Main",
+                    options=[("Prequel", 0), ("Main", 1), ("Sequel", 2)],
+                    label="Timeline",
                 ),
             ),
             _showcase_card(
