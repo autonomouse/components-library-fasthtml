@@ -2,7 +2,7 @@
 
 ## Overview
 
-This guide provides comprehensive instructions for developing features using the components-library-python package in FastHTML applications. Follow this guide to ensure consistency, maintainability, and quality across all components.
+This guide provides comprehensive instructions for developing features using the components-library-fasthtml package in FastHTML applications. Follow this guide to ensure consistency, maintainability, and quality across all components.
 
 ## Core Development Principles
 

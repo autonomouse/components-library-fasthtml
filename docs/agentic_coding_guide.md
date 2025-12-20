@@ -1,6 +1,6 @@
 # Agentic Coding Guide for FastHTML Development
 
-This guide helps developers build FastHTML applications using AI coding assistants (Claude Code, Cursor, GitHub Copilot, etc.) with the components-library-python package.
+This guide helps developers build FastHTML applications using AI coding assistants (Claude Code, Cursor, GitHub Copilot, etc.) with the components-library-fasthtml package.
 
 ## Table of Contents
 
@@ -174,7 +174,7 @@ See [Feature Development Guide](./feature-development-guide.md#minimize-javascri
 ### A Prompt To Get You Started
 
 ```
-I would like to create a FastHTML page using the components-library-python package.
+I would like to create a FastHTML page using the components-library-fasthtml package.
 
 The page needs to:
 1. Display a list of items from an API

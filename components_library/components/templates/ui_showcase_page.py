@@ -1129,7 +1129,7 @@ def ui_showcase_page(title: str = "Component Library Showcase") -> Any:
         separator(),
         # Footer
         vstack(
-            text("Built with components-library-python", variant="caption"),
+            text("Built with components-library-fasthtml", variant="caption"),
             button_link("← Back to Home", href="/", variant="solid", color_palette="brand"),
             gap=2,
             style="text-align: center;",
