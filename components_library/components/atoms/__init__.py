@@ -10,6 +10,7 @@ from .button import button
 from .button_link import button_link
 from .card import card
 from .checkbox import checkbox
+from .chip_select import chip_select
 from .collapsible import collapsible
 from .confidence_score import confidence_score
 from .date_input import date_input
@@ -125,6 +126,7 @@ __all__ = [
     # Data Display
     "card",
     "checkbox",
+    "chip_select",
     "collapsible",
     "confidence_score",
     "date_input",

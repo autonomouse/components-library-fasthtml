@@ -18,6 +18,7 @@ from ..atoms import (
     button_link,
     card,
     checkbox,
+    chip_select,
     collapsible,
     confidence_score,
     date_input,
@@ -78,6 +79,7 @@ from ..molecules import (
     filter_bar,
     filter_panel,
     footer,
+    form_modal,
     htmx_file_dropzone,
     htmx_pagination,
     htmx_tag_manager,
@@ -212,6 +214,30 @@ def _atoms_showcase() -> Any:
                         radio(name="size", value="lg", label="Large"),
                         gap=2,
                         style="align-items: flex-start;",
+                    ),
+                ),
+                _showcase_card(
+                    "Chip Select (Multi-select)",
+                    vstack(
+                        text("Select tones:", style="font-weight: 500;"),
+                        chip_select(
+                            name="tones",
+                            options=["Dark", "Hopeful", "Gritty", "Mysterious", "Action-Packed"],
+                            selected=["Dark", "Gritty"],
+                        ),
+                        separator(),
+                        text("Select categories:", style="font-weight: 500;"),
+                        chip_select(
+                            name="categories",
+                            options=[
+                                ("sci_fi", "Sci-Fi"),
+                                ("fantasy", "Fantasy"),
+                                ("horror", "Horror"),
+                            ],
+                            selected=["fantasy"],
+                            size="sm",
+                        ),
+                        gap=3,
                     ),
                 ),
                 _showcase_card(
@@ -802,6 +828,32 @@ def _molecules_showcase() -> Any:
                 vstack(
                     text("Login form:", variant="caption"),
                     auth_form(form_type="login", action="/login"),
+                    gap=2,
+                ),
+            ),
+            _showcase_card(
+                "Form Modal",
+                vstack(
+                    form_modal(
+                        field(input(name="name", placeholder="Enter name"), label="Name"),
+                        field(
+                            select(
+                                name="type",
+                                options=[("a", "Type A"), ("b", "Type B")],
+                                placeholder="Select type...",
+                            ),
+                            label="Type",
+                        ),
+                        field(textarea(name="notes", placeholder="Notes..."), label="Notes"),
+                        modal_id="showcase-form-modal",
+                        title="Create Item",
+                        form_action="/api/items",
+                        submit_label="Create",
+                    ),
+                    text(
+                        "(Use showModal() to open - combines modal + form)",
+                        variant="caption",
+                    ),
                     gap=2,
                 ),
             ),

@@ -14,6 +14,7 @@ from .file_upload_progress import file_upload_progress
 from .filter_bar import filter_bar
 from .filter_panel import FilterGroup, filter_panel
 from .footer import footer
+from .form_modal import form_modal
 from .htmx_file_dropzone import htmx_file_dropzone
 from .htmx_tag_manager import htmx_tag_manager
 from .item_details import item_details
@@ -53,6 +54,7 @@ __all__ = [
     "filter_bar",
     "filter_panel",
     "footer",
+    "form_modal",
     "htmx_file_dropzone",
     "htmx_pagination",
     "htmx_tag_manager",
