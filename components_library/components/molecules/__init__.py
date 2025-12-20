@@ -3,6 +3,7 @@
 from .action_card import action_card
 from .auth_form import auth_form
 from .breadcrumbs import BreadcrumbItem, breadcrumbs
+from .character_card import character_card
 from .completion_circle import completion_circle
 from .dashboard_nav_card import dashboard_nav_card
 from .dashboard_stat_card import dashboard_stat_card
@@ -51,6 +52,7 @@ __all__ = [
     "action_card",
     "auth_form",
     "breadcrumbs",
+    "character_card",
     "completion_circle",
     "dashboard_nav_card",
     "dashboard_stat_card",

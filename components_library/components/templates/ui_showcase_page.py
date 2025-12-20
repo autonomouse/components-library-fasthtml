@@ -150,26 +150,162 @@ def _atoms_showcase() -> Any:
     return collapsible(
         heading("Atoms", level=2, style="color: var(--color-primary-600);"),
         vstack(
-            # Typography
+            # Buttons
             vstack(
-                heading("Typography", level=3, size="lg", style="color: var(--color-primary-500);"),
+                heading("Buttons", level=3, size="lg", style="color: var(--color-primary-500);"),
                 _showcase_card(
-                    "Heading Levels",
-                    heading("H1 Heading", level=1),
-                    heading("H2 Heading", level=2),
-                    heading("H3 Heading", level=3),
-                    text("Body text"),
-                    text("Caption text", variant="caption"),
+                    "Button Colors",
+                    hstack(
+                        button("Brand", color_palette="brand"),
+                        button("Gray", color_palette="gray"),
+                        button("Red", color_palette="red"),
+                        button("Green", color_palette="green"),
+                        gap=2,
+                    ),
                 ),
                 _showcase_card(
-                    "Responsive Text",
-                    responsive_text(
-                        "This text adapts to screen size",
-                        size_mobile="sm",
-                        size_tablet="lg",
-                        size_desktop="xl2",
-                        weight="semibold",
+                    "Button Sizes",
+                    hstack(
+                        button("XS", size="xs"),
+                        button("SM", size="sm"),
+                        button("MD", size="md"),
+                        button("LG", size="lg"),
+                        gap=2,
                     ),
+                ),
+                _showcase_card(
+                    "Button Variants",
+                    hstack(
+                        button("Primary", variant="solid"),
+                        button("Secondary", variant="outline"),
+                        button("Ghost", variant="ghost"),
+                        icon_button("⚙️", aria_label="Settings"),
+                        link("Link", href="#"),
+                        gap=2,
+                    ),
+                ),
+                _showcase_card(
+                    "Logical Operator",
+                    hstack(
+                        logical_operator("AND"),
+                        logical_operator("OR"),
+                        logical_operator("AND NOT"),
+                        gap=2,
+                    ),
+                ),
+                gap=3,
+            ),
+            separator(),
+            # Data Display
+            vstack(
+                heading(
+                    "Data Display", level=3, size="lg", style="color: var(--color-primary-500);"
+                ),
+                _showcase_card(
+                    "Card",
+                    card(
+                        text("Card content"),
+                        header=heading("Card Title", level=4),
+                        footer=hstack(
+                            button("Cancel", variant="outline", size="sm"),
+                            button("Save", size="sm"),
+                            gap=2,
+                        ),
+                    ),
+                ),
+                _showcase_card(
+                    "Empty State",
+                    empty_state(
+                        "No items found",
+                        title="Get Started",
+                        icon="📭",
+                        action=button("Add Item", variant="outline", size="sm"),
+                    ),
+                ),
+                _showcase_card(
+                    "Pagination",
+                    pagination(current_page=2, total_pages=5),
+                ),
+                _showcase_card(
+                    "Table",
+                    table(
+                        headers=["Name", "Status", "Score"],
+                        rows=[
+                            ["Alice", badge("Active", variant="success"), "95%"],
+                            ["Bob", badge("Pending", variant="gray"), "82%"],
+                            ["Carol", badge("Error", variant="error"), "N/A"],
+                        ],
+                        striped=True,
+                    ),
+                ),
+                gap=3,
+            ),
+            separator(),
+            # Feedback
+            vstack(
+                heading("Feedback", level=3, size="lg", style="color: var(--color-primary-500);"),
+                _showcase_card(
+                    "Alert Variants",
+                    vstack(
+                        alert("Informational message", variant="info"),
+                        alert("Success message", variant="success"),
+                        alert("Warning message", variant="warning"),
+                        alert("Error message", variant="error"),
+                        gap=2,
+                    ),
+                ),
+                _showcase_card(
+                    "Avatar",
+                    hstack(
+                        avatar(name="AB", size=32),
+                        avatar(name="CD", size=40),
+                        avatar(name="EF", size=48),
+                        gap=2,
+                    ),
+                ),
+                _showcase_card(
+                    "Badge & Tag",
+                    hstack(
+                        badge("New"),
+                        badge("Active", variant="success"),
+                        badge("Neutral", variant="gray"),
+                        badge("Error", variant="error"),
+                        tag("Python"),
+                        tag("FastHTML"),
+                        gap=2,
+                    ),
+                ),
+                _showcase_card(
+                    "Confidence Score",
+                    vstack(
+                        hstack(text("Low (30%):"), confidence_score(30), gap=2),
+                        hstack(text("Medium (60%):"), confidence_score(60), gap=2),
+                        hstack(text("High (90%):"), confidence_score(90), gap=2),
+                        gap=2,
+                    ),
+                ),
+                _showcase_card(
+                    "Progress",
+                    vstack(
+                        progress(25, show_label=True),
+                        progress(50, show_label=True),
+                        progress(75, show_label=True),
+                        gap=2,
+                    ),
+                ),
+                _showcase_card(
+                    "Skeleton",
+                    vstack(
+                        skeleton(variant="text", width="80%"),
+                        skeleton(variant="text", width="60%"),
+                        skeleton(variant="circular", width="3rem", height="3rem"),
+                        skeleton(variant="rectangular", width="100%", height="8rem"),
+                        gap=2,
+                    ),
+                ),
+                _showcase_card(
+                    "Spinner",
+                    hstack(spinner(size="sm"), spinner(size="md"), spinner(size="lg"), gap=3),
                 ),
                 gap=3,
             ),
@@ -177,41 +313,6 @@ def _atoms_showcase() -> Any:
             # Forms
             vstack(
                 heading("Forms", level=3, size="lg", style="color: var(--color-primary-500);"),
-                _showcase_card(
-                    "Input & Textarea",
-                    hstack(
-                        field(input(name="email", placeholder="Email"), label="Email"),
-                        field(
-                            select(name="role", options=[("", "Select"), ("admin", "Admin")]),
-                            label="Role",
-                        ),
-                        gap=3,
-                        style="flex-wrap: wrap;",
-                    ),
-                    field(
-                        textarea(name="description", placeholder="Enter description", rows=3),
-                        label="Description",
-                    ),
-                ),
-                _showcase_card(
-                    "Date & Autocomplete",
-                    hstack(
-                        field(
-                            date_input(name="start_date", value="2024-01-01"),
-                            label="Start Date",
-                        ),
-                        field(
-                            autocomplete_input(
-                                name="search",
-                                placeholder="Type to search...",
-                                search_url="/api/search",
-                            ),
-                            label="Search",
-                        ),
-                        gap=3,
-                        style="flex-wrap: wrap;",
-                    ),
-                ),
                 _showcase_card(
                     "Checkbox, Radio & Switch",
                     hstack(
@@ -253,167 +354,69 @@ def _atoms_showcase() -> Any:
                     ),
                 ),
                 _showcase_card(
+                    "Date & Autocomplete",
+                    hstack(
+                        field(
+                            date_input(name="start_date", value="2024-01-01"),
+                            label="Start Date",
+                        ),
+                        field(
+                            autocomplete_input(
+                                name="search",
+                                placeholder="Type to search...",
+                                search_url="/api/search",
+                            ),
+                            label="Search",
+                        ),
+                        gap=3,
+                        style="flex-wrap: wrap;",
+                    ),
+                ),
+                _showcase_card(
+                    "Input & Textarea",
+                    hstack(
+                        field(input(name="email", placeholder="Email"), label="Email"),
+                        field(
+                            select(name="role", options=[("", "Select"), ("admin", "Admin")]),
+                            label="Role",
+                        ),
+                        gap=3,
+                        style="flex-wrap: wrap;",
+                    ),
+                    field(
+                        textarea(name="description", placeholder="Enter description", rows=3),
+                        label="Description",
+                    ),
+                ),
+                _showcase_card(
                     "Slider",
                     slider(name="volume", value=75, label="Volume", show_value=True),
                 ),
                 gap=3,
             ),
             separator(),
-            # Buttons
-            vstack(
-                heading("Buttons", level=3, size="lg", style="color: var(--color-primary-500);"),
-                _showcase_card(
-                    "Button Variants",
-                    hstack(
-                        button("Primary", variant="solid"),
-                        button("Secondary", variant="outline"),
-                        button("Ghost", variant="ghost"),
-                        icon_button("⚙️", aria_label="Settings"),
-                        link("Link", href="#"),
-                        gap=2,
-                    ),
-                ),
-                _showcase_card(
-                    "Button Sizes",
-                    hstack(
-                        button("XS", size="xs"),
-                        button("SM", size="sm"),
-                        button("MD", size="md"),
-                        button("LG", size="lg"),
-                        gap=2,
-                    ),
-                ),
-                _showcase_card(
-                    "Button Colors",
-                    hstack(
-                        button("Brand", color_palette="brand"),
-                        button("Gray", color_palette="gray"),
-                        button("Red", color_palette="red"),
-                        button("Green", color_palette="green"),
-                        gap=2,
-                    ),
-                ),
-                _showcase_card(
-                    "Logical Operator",
-                    hstack(
-                        logical_operator("AND"),
-                        logical_operator("OR"),
-                        logical_operator("AND NOT"),
-                        gap=2,
-                    ),
-                ),
-                gap=3,
-            ),
-            separator(),
-            # Feedback
-            vstack(
-                heading("Feedback", level=3, size="lg", style="color: var(--color-primary-500);"),
-                _showcase_card(
-                    "Alert Variants",
-                    vstack(
-                        alert("Informational message", variant="info"),
-                        alert("Success message", variant="success"),
-                        alert("Warning message", variant="warning"),
-                        alert("Error message", variant="error"),
-                        gap=2,
-                    ),
-                ),
-                _showcase_card(
-                    "Spinner",
-                    hstack(spinner(size="sm"), spinner(size="md"), spinner(size="lg"), gap=3),
-                ),
-                _showcase_card(
-                    "Progress",
-                    vstack(
-                        progress(25, show_label=True),
-                        progress(50, show_label=True),
-                        progress(75, show_label=True),
-                        gap=2,
-                    ),
-                ),
-                _showcase_card(
-                    "Confidence Score",
-                    vstack(
-                        hstack(text("Low (30%):"), confidence_score(30), gap=2),
-                        hstack(text("Medium (60%):"), confidence_score(60), gap=2),
-                        hstack(text("High (90%):"), confidence_score(90), gap=2),
-                        gap=2,
-                    ),
-                ),
-                _showcase_card(
-                    "Badge & Tag",
-                    hstack(
-                        badge("New"),
-                        badge("Active", variant="success"),
-                        badge("Neutral", variant="gray"),
-                        badge("Error", variant="error"),
-                        tag("Python"),
-                        tag("FastHTML"),
-                        gap=2,
-                    ),
-                ),
-                _showcase_card(
-                    "Avatar",
-                    hstack(
-                        avatar(name="AB", size=32),
-                        avatar(name="CD", size=40),
-                        avatar(name="EF", size=48),
-                        gap=2,
-                    ),
-                ),
-                _showcase_card(
-                    "Skeleton",
-                    vstack(
-                        skeleton(variant="text", width="80%"),
-                        skeleton(variant="text", width="60%"),
-                        skeleton(variant="circular", width="3rem", height="3rem"),
-                        skeleton(variant="rectangular", width="100%", height="8rem"),
-                        gap=2,
-                    ),
-                ),
-                gap=3,
-            ),
-            separator(),
-            # Data Display
+            # Icons & Logo
             vstack(
                 heading(
-                    "Data Display", level=3, size="lg", style="color: var(--color-primary-500);"
+                    "Icons & Logo", level=3, size="lg", style="color: var(--color-primary-500);"
                 ),
                 _showcase_card(
-                    "Card",
-                    card(
-                        text("Card content"),
-                        header=heading("Card Title", level=4),
-                        footer=hstack(
-                            button("Cancel", variant="outline", size="sm"),
-                            button("Save", size="sm"),
-                            gap=2,
-                        ),
+                    "Icons",
+                    hstack(
+                        icon("🏠", size="sm"),
+                        icon("⚙️", size="md"),
+                        icon("❤️", size="lg", color="red"),
+                        icon("⭐", size="lg", color="gold"),
+                        gap=3,
                     ),
                 ),
                 _showcase_card(
-                    "Table",
-                    table(
-                        headers=["Name", "Status", "Score"],
-                        rows=[
-                            ["Alice", badge("Active", variant="success"), "95%"],
-                            ["Bob", badge("Pending", variant="gray"), "82%"],
-                            ["Carol", badge("Error", variant="error"), "N/A"],
-                        ],
-                        striped=True,
-                    ),
-                ),
-                _showcase_card(
-                    "Pagination",
-                    pagination(current_page=2, total_pages=5),
-                ),
-                _showcase_card(
-                    "Empty State",
-                    empty_state(
-                        "No items found",
-                        title="Get Started",
-                        icon="📭",
-                        action=button("Add Item", variant="outline", size="sm"),
+                    "Logo",
+                    hstack(
+                        logo(text="MyApp", size="sm"),
+                        logo(text="MyApp", size="md"),
+                        logo(text="MyApp", size="lg"),
+                        gap=3,
                     ),
                 ),
                 gap=3,
@@ -434,15 +437,6 @@ def _atoms_showcase() -> Any:
                     ),
                 ),
                 _showcase_card(
-                    "Tabs",
-                    tabs(
-                        ["Overview", "Details", "Settings"],
-                        tab_panel(text("Overview content"), panel_index=0),
-                        tab_panel(text("Details content"), panel_index=1),
-                        tab_panel(text("Settings content"), panel_index=2),
-                    ),
-                ),
-                _showcase_card(
                     "Collapsible",
                     collapsible(
                         text("Click to expand"),
@@ -450,59 +444,13 @@ def _atoms_showcase() -> Any:
                         open=False,
                     ),
                 ),
-                gap=3,
-            ),
-            separator(),
-            # Overlays
-            vstack(
-                heading(
-                    "Overlays & Menus", level=3, size="lg", style="color: var(--color-primary-500);"
-                ),
                 _showcase_card(
-                    "Menu",
-                    menu(
-                        button("Actions", variant="outline"),
-                        menu_item("Edit", icon="✏️", href="#edit"),
-                        menu_item("Duplicate", icon="📋", href="#duplicate"),
-                        menu_divider(),
-                        menu_item("Delete", icon="🗑️", href="#delete"),
-                    ),
-                ),
-                _showcase_card(
-                    "Tooltip",
-                    hstack(
-                        tooltip(button("Hover me", variant="outline"), "This is helpful info"),
-                        tooltip(icon("ℹ️"), "Information tooltip", position="right"),
-                        gap=3,
-                    ),
-                ),
-                _showcase_card(
-                    "Popover",
-                    popover(
-                        button("Click for info", variant="outline"),
-                        heading("Popover Title", level=4),
-                        text("This is popover content with more details"),
-                        position="bottom",
-                    ),
-                ),
-                _showcase_card(
-                    "Modal",
-                    vstack(
-                        modal(
-                            text("Are you sure you want to proceed?"),
-                            modal_id="showcase-modal",
-                            title="Confirm Action",
-                            footer=hstack(
-                                button("Cancel", variant="outline", size="sm"),
-                                button("Confirm", size="sm"),
-                                gap=2,
-                            ),
-                        ),
-                        text(
-                            "(Use showModal() to open - native dialog element)",
-                            variant="caption",
-                        ),
-                        gap=2,
+                    "Tabs",
+                    tabs(
+                        ["Overview", "Details", "Settings"],
+                        tab_panel(text("Overview content"), panel_index=0),
+                        tab_panel(text("Details content"), panel_index=1),
+                        tab_panel(text("Settings content"), panel_index=2),
                     ),
                 ),
                 gap=3,
@@ -554,28 +502,80 @@ def _atoms_showcase() -> Any:
                 gap=3,
             ),
             separator(),
-            # Icons & Logo
+            # Overlays & Menus
             vstack(
                 heading(
-                    "Icons & Logo", level=3, size="lg", style="color: var(--color-primary-500);"
+                    "Overlays & Menus", level=3, size="lg", style="color: var(--color-primary-500);"
                 ),
                 _showcase_card(
-                    "Icons",
-                    hstack(
-                        icon("🏠", size="sm"),
-                        icon("⚙️", size="md"),
-                        icon("❤️", size="lg", color="red"),
-                        icon("⭐", size="lg", color="gold"),
-                        gap=3,
+                    "Menu",
+                    menu(
+                        button("Actions", variant="outline"),
+                        menu_item("Edit", icon="✏️", href="#edit"),
+                        menu_item("Duplicate", icon="📋", href="#duplicate"),
+                        menu_divider(),
+                        menu_item("Delete", icon="🗑️", href="#delete"),
                     ),
                 ),
                 _showcase_card(
-                    "Logo",
+                    "Modal",
+                    vstack(
+                        modal(
+                            text("Are you sure you want to proceed?"),
+                            modal_id="showcase-modal",
+                            title="Confirm Action",
+                            footer=hstack(
+                                button("Cancel", variant="outline", size="sm"),
+                                button("Confirm", size="sm"),
+                                gap=2,
+                            ),
+                        ),
+                        text(
+                            "(Use showModal() to open - native dialog element)",
+                            variant="caption",
+                        ),
+                        gap=2,
+                    ),
+                ),
+                _showcase_card(
+                    "Popover",
+                    popover(
+                        button("Click for info", variant="outline"),
+                        heading("Popover Title", level=4),
+                        text("This is popover content with more details"),
+                        position="bottom",
+                    ),
+                ),
+                _showcase_card(
+                    "Tooltip",
                     hstack(
-                        logo(text="MyApp", size="sm"),
-                        logo(text="MyApp", size="md"),
-                        logo(text="MyApp", size="lg"),
+                        tooltip(button("Hover me", variant="outline"), "This is helpful info"),
+                        tooltip(icon("ℹ️"), "Information tooltip", position="right"),
                         gap=3,
+                    ),
+                ),
+                gap=3,
+            ),
+            separator(),
+            # Typography
+            vstack(
+                heading("Typography", level=3, size="lg", style="color: var(--color-primary-500);"),
+                _showcase_card(
+                    "Heading Levels",
+                    heading("H1 Heading", level=1),
+                    heading("H2 Heading", level=2),
+                    heading("H3 Heading", level=3),
+                    text("Body text"),
+                    text("Caption text", variant="caption"),
+                ),
+                _showcase_card(
+                    "Responsive Text",
+                    responsive_text(
+                        "This text adapts to screen size",
+                        size_mobile="sm",
+                        size_tablet="lg",
+                        size_desktop="xl2",
+                        weight="semibold",
                     ),
                 ),
                 gap=3,
@@ -600,68 +600,11 @@ def _molecules_showcase() -> Any:
                 ),
             ),
             _showcase_card(
-                "Nav Card",
-                hstack(
-                    nav_card(
-                        "Navigation",
-                        "A link to another page",
-                        href="/example",
-                    ),
-                    dashboard_nav_card(
-                        "Dashboard Nav",
-                        "Fancy neon card for dashboard nav",
-                        href="#",
-                        icon_content=Div("🚀", style="font-size: 2rem"),
-                    ),
-                    gap=3,
-                ),
-            ),
-            _showcase_card(
-                "Stat Card",
-                hstack(
-                    stat_card("Total Users", "1,234", icon="👤"),
-                    stat_card(
-                        "Revenue",
-                        "$50,000",
-                        icon="💰",
-                        gradient_start="#f59e0b",
-                        gradient_end="#ef4444",
-                    ),
-                    dashboard_stat_card(
-                        "Neon Stat",
-                        "450",
-                        total="500",
-                        icon=Div("✨", style="font-size: 1.5rem"),
-                        progress_value=90,
-                    ),
-                    gap=3,
-                    style="flex-wrap: wrap;",
-                ),
-            ),
-            _showcase_card(
-                "Completion Circle",
-                completion_circle("Book 1", percentage=45, subtitle="Draft Completion"),
-            ),
-            _showcase_card(
-                "Timeline Card",
-                hstack(
-                    timeline_card(
-                        title="Phase 1",
-                        item_type="Planning",
-                        status="Complete",
-                        sequence_position="Start",
-                        href="#",
-                    ),
-                    timeline_card(
-                        title="Phase 2",
-                        item_type="Development",
-                        status="In Progress",
-                        sequence_position="Current",
-                        image_url="https://picsum.photos/280/400",
-                        href="#",
-                    ),
-                    gap=3,
-                    style="flex-wrap: wrap;",
+                "Auth Form",
+                vstack(
+                    text("Login form:", variant="caption"),
+                    auth_form(form_type="login", action="/login"),
+                    gap=2,
                 ),
             ),
             _showcase_card(
@@ -675,15 +618,8 @@ def _molecules_showcase() -> Any:
                 ),
             ),
             _showcase_card(
-                "Search Bar",
-                search_bar(placeholder="Search items...", width="100%"),
-            ),
-            _showcase_card(
-                "Enhanced Search Bar",
-                enhanced_search_bar(
-                    placeholder="Enhanced search with icons...",
-                    right_icon="filter",
-                ),
+                "Completion Circle",
+                completion_circle("Book 1", percentage=45, subtitle="Draft Completion"),
             ),
             _showcase_card(
                 "Date Range",
@@ -714,6 +650,60 @@ def _molecules_showcase() -> Any:
                         ("Role", "Administrator"),
                         ("Status", "Active"),
                     ]
+                ),
+            ),
+            _showcase_card(
+                "Discrete Selection Slider",
+                discrete_slider(
+                    "demo_slider",
+                    value="Main",
+                    options=[("Prequel", 0), ("Main", 1), ("Sequel", 2)],
+                    label="Timeline",
+                ),
+            ),
+            _showcase_card(
+                "Enhanced Search Bar",
+                enhanced_search_bar(
+                    placeholder="Enhanced search with icons...",
+                    right_icon="filter",
+                ),
+            ),
+            _showcase_card(
+                "Error Fallback",
+                error_fallback(
+                    error="Failed to load data",
+                    title="Something went wrong",
+                    show_retry=True,
+                ),
+            ),
+            _showcase_card(
+                "Favorite Button",
+                hstack(
+                    favorite_button(item_id=1, is_favorite=False),
+                    favorite_button(item_id=2, is_favorite=True),
+                    gap=2,
+                ),
+            ),
+            _showcase_card(
+                "File Dropzone",
+                file_dropzone(accept=".csv,.xlsx", accepted_formats="CSV, Excel", max_size="10MB"),
+            ),
+            _showcase_card(
+                "File Upload Progress",
+                vstack(
+                    file_upload_progress(
+                        file_name="data.csv",
+                        file_size=1024000,
+                        progress_value=65,
+                        status="uploading",
+                    ),
+                    file_upload_progress(
+                        file_name="complete.xlsx",
+                        file_size=2048000,
+                        progress_value=100,
+                        status="complete",
+                    ),
+                    gap=2,
                 ),
             ),
             _showcase_card(
@@ -748,83 +738,57 @@ def _molecules_showcase() -> Any:
                 ),
             ),
             _showcase_card(
-                "Tag Manager",
-                tag_manager(
+                "Footer",
+                footer(),
+            ),
+            _showcase_card(
+                "Form Modal",
+                vstack(
+                    form_modal(
+                        field(input(name="name", placeholder="Enter name"), label="Name"),
+                        field(
+                            select(
+                                name="type",
+                                options=[("a", "Type A"), ("b", "Type B")],
+                                placeholder="Select type...",
+                            ),
+                            label="Type",
+                        ),
+                        field(textarea(name="notes", placeholder="Notes..."), label="Notes"),
+                        modal_id="showcase-form-modal",
+                        title="Create Item",
+                        form_action="/api/items",
+                        submit_label="Create",
+                    ),
+                    text(
+                        "(Use showModal() to open - combines modal + form)",
+                        variant="caption",
+                    ),
+                    gap=2,
+                ),
+            ),
+            _showcase_card(
+                "HTMX File Dropzone",
+                htmx_file_dropzone(
+                    upload_url="/api/upload",
+                    accept=".csv,.xlsx",
+                    max_size="10MB",
+                ),
+            ),
+            _showcase_card(
+                "HTMX Pagination",
+                htmx_pagination(current_page=2, total_pages=10, base_url="/items"),
+            ),
+            _showcase_card(
+                "HTMX Tag Manager",
+                htmx_tag_manager(
                     available_tags=[
                         TagItem(id="1", name="Important", color="var(--color-red-500)"),
                         TagItem(id="2", name="Review", color="var(--color-blue-500)"),
-                        TagItem(id="3", name="Approved", color="var(--color-green-500)"),
                     ],
-                    selected_tags=[TagItem(id="1", name="Important")],
-                ),
-            ),
-            _showcase_card(
-                "Token Pill",
-                hstack(
-                    token_pill(Token(id="1", name="Aspirin", type="Drug")),
-                    token_pill(Token(id="2", name="BRCA1", type="Gene")),
-                    token_pill({"id": "3", "name": "Cancer", "type": "Disease"}),
-                    gap=2,
-                ),
-            ),
-            _showcase_card(
-                "File Dropzone",
-                file_dropzone(accept=".csv,.xlsx", accepted_formats="CSV, Excel", max_size="10MB"),
-            ),
-            _showcase_card(
-                "File Upload Progress",
-                vstack(
-                    file_upload_progress(
-                        file_name="data.csv",
-                        file_size=1024000,
-                        progress_value=65,
-                        status="uploading",
-                    ),
-                    file_upload_progress(
-                        file_name="complete.xlsx",
-                        file_size=2048000,
-                        progress_value=100,
-                        status="complete",
-                    ),
-                    gap=2,
-                ),
-            ),
-            _showcase_card(
-                "Search Results",
-                search_results(
-                    results=[
-                        {"id": 1, "name": "First Result Item"},
-                        {"id": 2, "name": "Second Result Item"},
-                    ],
-                    query="result",
-                ),
-            ),
-            _showcase_card(
-                "Discrete Selection Slider",
-                discrete_slider(
-                    "demo_slider",
-                    value="Main",
-                    options=[("Prequel", 0), ("Main", 1), ("Sequel", 2)],
-                    label="Timeline",
-                ),
-            ),
-            _showcase_card(
-                "Result Card",
-                hstack(
-                    result_card(
-                        item_id="ABC-001",
-                        item_name="Example Result Item",
-                        detail_url="#",
-                        push_url=False,
-                    ),
-                    result_card(
-                        item_id="XYZ-999",
-                        item_name="Another Item with a Longer Name That May Wrap",
-                        detail_url="#",
-                        push_url=False,
-                    ),
-                    gap=3,
-                    style="flex-wrap: wrap;",
+                    selected_tag_ids=["1"],
+                    add_tag_url="/api/tags/add",
+                    remove_tag_url="/api/tags/remove",
                 ),
             ),
             _showcase_card(
@@ -837,14 +801,6 @@ def _molecules_showcase() -> Any:
                         ("Location", "Warehouse A"),
                         ("Notes", "Handle with care"),
                     ]
-                ),
-            ),
-            _showcase_card(
-                "Error Fallback",
-                error_fallback(
-                    error="Failed to load data",
-                    title="Something went wrong",
-                    show_retry=True,
                 ),
             ),
             _showcase_card(
@@ -876,6 +832,23 @@ def _molecules_showcase() -> Any:
                 ),
             ),
             _showcase_card(
+                "Nav Card",
+                hstack(
+                    nav_card(
+                        "Navigation",
+                        "A link to another page",
+                        href="/example",
+                    ),
+                    dashboard_nav_card(
+                        "Dashboard Nav",
+                        "Fancy neon card for dashboard nav",
+                        href="#",
+                        icon_content=Div("🚀", style="font-size: 2rem"),
+                    ),
+                    gap=3,
+                ),
+            ),
+            _showcase_card(
                 "Overflow Tooltip",
                 overflow_tooltip(
                     "This is a very long text that will be truncated and shown in a tooltip when hovered over by the user",
@@ -883,64 +856,58 @@ def _molecules_showcase() -> Any:
                 ),
             ),
             _showcase_card(
-                "Favorite Button",
+                "Result Card",
                 hstack(
-                    favorite_button(item_id=1, is_favorite=False),
-                    favorite_button(item_id=2, is_favorite=True),
-                    gap=2,
+                    result_card(
+                        item_id="ABC-001",
+                        item_name="Example Result Item",
+                        detail_url="#",
+                        push_url=False,
+                    ),
+                    result_card(
+                        item_id="XYZ-999",
+                        item_name="Another Item with a Longer Name That May Wrap",
+                        detail_url="#",
+                        push_url=False,
+                    ),
+                    gap=3,
+                    style="flex-wrap: wrap;",
                 ),
             ),
             _showcase_card(
-                "User Nav",
-                user_nav(user={"email": "user@example.com", "name": "John Doe"}),
+                "Search Bar",
+                search_bar(placeholder="Search items...", width="100%"),
             ),
             _showcase_card(
-                "User Actions",
-                user_actions(
-                    user_avatar=None,
-                    user_name="Jane Smith",
-                    menu_items=[
-                        UserAction(id="profile", label="Profile", href="/profile", icon="👤"),
-                        UserAction(id="settings", label="Settings", href="/settings", icon="⚙️"),
-                        UserAction(
-                            id="logout", label="Logout", href="/logout", icon="🚪", variant="danger"
-                        ),
+                "Search Results",
+                search_results(
+                    results=[
+                        {"id": 1, "name": "First Result Item"},
+                        {"id": 2, "name": "Second Result Item"},
                     ],
-                    notification_count=3,
+                    query="result",
                 ),
             ),
             _showcase_card(
-                "Auth Form",
-                vstack(
-                    text("Login form:", variant="caption"),
-                    auth_form(form_type="login", action="/login"),
-                    gap=2,
-                ),
-            ),
-            _showcase_card(
-                "Form Modal",
-                vstack(
-                    form_modal(
-                        field(input(name="name", placeholder="Enter name"), label="Name"),
-                        field(
-                            select(
-                                name="type",
-                                options=[("a", "Type A"), ("b", "Type B")],
-                                placeholder="Select type...",
-                            ),
-                            label="Type",
-                        ),
-                        field(textarea(name="notes", placeholder="Notes..."), label="Notes"),
-                        modal_id="showcase-form-modal",
-                        title="Create Item",
-                        form_action="/api/items",
-                        submit_label="Create",
+                "Stat Card",
+                hstack(
+                    stat_card("Total Users", "1,234", icon="👤"),
+                    stat_card(
+                        "Revenue",
+                        "$50,000",
+                        icon="💰",
+                        gradient_start="#f59e0b",
+                        gradient_end="#ef4444",
                     ),
-                    text(
-                        "(Use showModal() to open - combines modal + form)",
-                        variant="caption",
+                    dashboard_stat_card(
+                        "Neon Stat",
+                        "450",
+                        total="500",
+                        icon=Div("✨", style="font-size: 1.5rem"),
+                        progress_value=90,
                     ),
-                    gap=2,
+                    gap=3,
+                    style="flex-wrap: wrap;",
                 ),
             ),
             _showcase_card(
@@ -958,33 +925,65 @@ def _molecules_showcase() -> Any:
                 ),
             ),
             _showcase_card(
-                "Footer",
-                footer(),
-            ),
-            # HTMX-enabled molecules
-            _showcase_card(
-                "HTMX Pagination",
-                htmx_pagination(current_page=2, total_pages=10, base_url="/items"),
-            ),
-            _showcase_card(
-                "HTMX File Dropzone",
-                htmx_file_dropzone(
-                    upload_url="/api/upload",
-                    accept=".csv,.xlsx",
-                    max_size="10MB",
-                ),
-            ),
-            _showcase_card(
-                "HTMX Tag Manager",
-                htmx_tag_manager(
+                "Tag Manager",
+                tag_manager(
                     available_tags=[
                         TagItem(id="1", name="Important", color="var(--color-red-500)"),
                         TagItem(id="2", name="Review", color="var(--color-blue-500)"),
+                        TagItem(id="3", name="Approved", color="var(--color-green-500)"),
                     ],
-                    selected_tag_ids=["1"],
-                    add_tag_url="/api/tags/add",
-                    remove_tag_url="/api/tags/remove",
+                    selected_tags=[TagItem(id="1", name="Important")],
                 ),
+            ),
+            _showcase_card(
+                "Timeline Card",
+                hstack(
+                    timeline_card(
+                        title="Phase 1",
+                        item_type="Planning",
+                        status="Complete",
+                        sequence_position="Start",
+                        href="#",
+                    ),
+                    timeline_card(
+                        title="Phase 2",
+                        item_type="Development",
+                        status="In Progress",
+                        sequence_position="Current",
+                        image_url="https://picsum.photos/280/400",
+                        href="#",
+                    ),
+                    gap=3,
+                    style="flex-wrap: wrap;",
+                ),
+            ),
+            _showcase_card(
+                "Token Pill",
+                hstack(
+                    token_pill(Token(id="1", name="Aspirin", type="Drug")),
+                    token_pill(Token(id="2", name="BRCA1", type="Gene")),
+                    token_pill({"id": "3", "name": "Cancer", "type": "Disease"}),
+                    gap=2,
+                ),
+            ),
+            _showcase_card(
+                "User Actions",
+                user_actions(
+                    user_avatar=None,
+                    user_name="Jane Smith",
+                    menu_items=[
+                        UserAction(id="profile", label="Profile", href="/profile", icon="👤"),
+                        UserAction(id="settings", label="Settings", href="/settings", icon="⚙️"),
+                        UserAction(
+                            id="logout", label="Logout", href="/logout", icon="🚪", variant="danger"
+                        ),
+                    ],
+                    notification_count=3,
+                ),
+            ),
+            _showcase_card(
+                "User Nav",
+                user_nav(user={"email": "user@example.com", "name": "John Doe"}),
             ),
             gap=4,
         ),
@@ -998,18 +997,49 @@ def _organisms_showcase() -> Any:
         heading("Organisms", level=2, style="color: var(--color-primary-600);"),
         vstack(
             _showcase_card(
-                "Page Header",
-                page_header(
-                    title="Dashboard",
-                    breadcrumb_items=[
-                        {"label": "Home", "url": "/"},
-                        {"label": "Dashboard"},
+                "Alphabet Browser",
+                alphabet_browser(),
+            ),
+            _showcase_card(
+                "Articles Search",
+                articles_search(
+                    tokens=[
+                        SearchToken(id="DOID:123", name="Cancer", type="disease"),
+                        SearchToken(id="GENE:456", name="BRCA1", type="gene"),
                     ],
-                    actions=[
-                        button("Export", variant="outline", size="sm"),
-                        button("Add New", variant="solid", size="sm"),
-                    ],
-                    description="Overview of your data",
+                    placeholder="Add concept...",
+                    suggestions_url="/api/concepts/search",
+                    search_url="/api/articles/search",
+                ),
+            ),
+            _showcase_card(
+                "Data Table",
+                data_table(
+                    card(text("Row 1 content"), style="padding: 1rem;"),
+                    card(text("Row 2 content"), style="padding: 1rem;"),
+                    card(text("Row 3 content"), style="padding: 1rem;"),
+                    title="Items",
+                    search_value="example",
+                    result_count=3,
+                ),
+            ),
+            _showcase_card(
+                "Feature Card",
+                hstack(
+                    feature_card(
+                        title="Fast Development",
+                        description="Build UIs quickly with pre-built components.",
+                        icon="⚡",
+                        progress=75,
+                    ),
+                    feature_card(
+                        title="Consistent Design",
+                        description="Maintain design consistency across your app.",
+                        icon="🎨",
+                        progress=90,
+                    ),
+                    gap=3,
+                    style="flex-wrap: wrap;",
                 ),
             ),
             _showcase_card(
@@ -1026,19 +1056,23 @@ def _organisms_showcase() -> Any:
                 ),
             ),
             _showcase_card(
-                "Data Table",
-                data_table(
-                    card(text("Row 1 content"), style="padding: 1rem;"),
-                    card(text("Row 2 content"), style="padding: 1rem;"),
-                    card(text("Row 3 content"), style="padding: 1rem;"),
-                    title="Items",
-                    search_value="example",
-                    result_count=3,
+                "Hero Section",
+                hero_section(
+                    headline="Build Amazing Apps",
+                    subheadline="Create stunning user interfaces with our component library.",
+                    cta_text="Get Started",
+                    cta_link="#",
                 ),
             ),
             _showcase_card(
-                "Alphabet Browser",
-                alphabet_browser(),
+                "Navigation",
+                vstack(
+                    text("Authenticated user:", variant="caption"),
+                    navigation(user={"email": "john@example.com", "name": "John Doe"}),
+                    text("Unauthenticated with CTA:", variant="caption"),
+                    navigation(show_cta=True),
+                    gap=3,
+                ),
             ),
             _showcase_card(
                 "Notifications",
@@ -1063,25 +1097,18 @@ def _organisms_showcase() -> Any:
                 ),
             ),
             _showcase_card(
-                "Navigation",
-                vstack(
-                    text("Authenticated user:", variant="caption"),
-                    navigation(user={"email": "john@example.com", "name": "John Doe"}),
-                    text("Unauthenticated with CTA:", variant="caption"),
-                    navigation(show_cta=True),
-                    gap=3,
-                ),
-            ),
-            _showcase_card(
-                "Articles Search",
-                articles_search(
-                    tokens=[
-                        SearchToken(id="DOID:123", name="Cancer", type="disease"),
-                        SearchToken(id="GENE:456", name="BRCA1", type="gene"),
+                "Page Header",
+                page_header(
+                    title="Dashboard",
+                    breadcrumb_items=[
+                        {"label": "Home", "url": "/"},
+                        {"label": "Dashboard"},
                     ],
-                    placeholder="Add concept...",
-                    suggestions_url="/api/concepts/search",
-                    search_url="/api/articles/search",
+                    actions=[
+                        button("Export", variant="outline", size="sm"),
+                        button("Add New", variant="solid", size="sm"),
+                    ],
+                    description="Overview of your data",
                 ),
             ),
             _showcase_card(
@@ -1092,34 +1119,6 @@ def _organisms_showcase() -> Any:
                         "email": "jane.doe@example.com",
                         "picture": "https://i.pravatar.cc/150?u=jane",
                     }
-                ),
-            ),
-            _showcase_card(
-                "Hero Section",
-                hero_section(
-                    headline="Build Amazing Apps",
-                    subheadline="Create stunning user interfaces with our component library.",
-                    cta_text="Get Started",
-                    cta_link="#",
-                ),
-            ),
-            _showcase_card(
-                "Feature Card",
-                hstack(
-                    feature_card(
-                        title="Fast Development",
-                        description="Build UIs quickly with pre-built components.",
-                        icon="⚡",
-                        progress=75,
-                    ),
-                    feature_card(
-                        title="Consistent Design",
-                        description="Maintain design consistency across your app.",
-                        icon="🎨",
-                        progress=90,
-                    ),
-                    gap=3,
-                    style="flex-wrap: wrap;",
                 ),
             ),
             _showcase_card(
@@ -1163,71 +1162,6 @@ def _templates_showcase() -> Any:
         heading("Templates", level=2, style="color: var(--color-primary-600);"),
         vstack(
             _showcase_card(
-                "Centered Content",
-                box(
-                    centered_content(
-                        vstack(
-                            heading("Centered", level=3),
-                            text("Content centered horizontally"),
-                            gap=2,
-                        ),
-                        max_width="300px",
-                    ),
-                    style="height: 150px; background: var(--color-gray-50); border-radius: 8px;",
-                ),
-            ),
-            _showcase_card(
-                "Page Container",
-                box(
-                    page_container(
-                        vstack(
-                            text("Full-height page container"),
-                            text("Provides consistent background", variant="caption"),
-                            gap=2,
-                        ),
-                        min_height="100px",
-                        padding="1rem",
-                    ),
-                    style="border: 1px dashed var(--color-gray-300); border-radius: 8px;",
-                ),
-            ),
-            _showcase_card(
-                "Sidebar Layout",
-                box(
-                    sidebar_layout(
-                        vstack(
-                            text("Main content area"),
-                            text("This is where primary content goes", variant="caption"),
-                            gap=2,
-                        ),
-                        sidebar=vstack(
-                            text("Sidebar", weight="semibold"),
-                            text("Filters, nav, etc.", variant="caption"),
-                            gap=2,
-                        ),
-                        sidebar_width="150px",
-                    ),
-                    style="height: 200px; border: 1px dashed var(--color-gray-300); border-radius: 8px; overflow: hidden;",
-                ),
-            ),
-            _showcase_card(
-                "Error Template",
-                text(
-                    "Error template provides consistent error page layout (404, 500, etc.)",
-                    variant="caption",
-                ),
-                box(
-                    error_template(
-                        error_code="404",
-                        title="Page Not Found",
-                        description="The page you're looking for doesn't exist.",
-                        primary_action_text="Go Home",
-                        primary_action_href="/",
-                    ),
-                    style="height: 300px; border: 1px dashed var(--color-gray-300); border-radius: 8px; overflow: hidden;",
-                ),
-            ),
-            _showcase_card(
                 "Auth Page Layout",
                 text(
                     "Centered layout for authentication pages (login, signup, etc.)",
@@ -1270,6 +1204,37 @@ def _templates_showcase() -> Any:
                 ),
             ),
             _showcase_card(
+                "Centered Content",
+                box(
+                    centered_content(
+                        vstack(
+                            heading("Centered", level=3),
+                            text("Content centered horizontally"),
+                            gap=2,
+                        ),
+                        max_width="300px",
+                    ),
+                    style="height: 150px; background: var(--color-gray-50); border-radius: 8px;",
+                ),
+            ),
+            _showcase_card(
+                "Error Template",
+                text(
+                    "Error template provides consistent error page layout (404, 500, etc.)",
+                    variant="caption",
+                ),
+                box(
+                    error_template(
+                        error_code="404",
+                        title="Page Not Found",
+                        description="The page you're looking for doesn't exist.",
+                        primary_action_text="Go Home",
+                        primary_action_href="/",
+                    ),
+                    style="height: 300px; border: 1px dashed var(--color-gray-300); border-radius: 8px; overflow: hidden;",
+                ),
+            ),
+            _showcase_card(
                 "Labs Intro Page",
                 text(
                     "Feature landing page template for Labs applications with hero section and content card.",
@@ -1293,6 +1258,40 @@ def _templates_showcase() -> Any:
                         last_update="November 2024",
                     ),
                     style="height: 400px; border: 1px dashed var(--color-gray-300); border-radius: 8px; overflow: auto;",
+                ),
+            ),
+            _showcase_card(
+                "Page Container",
+                box(
+                    page_container(
+                        vstack(
+                            text("Full-height page container"),
+                            text("Provides consistent background", variant="caption"),
+                            gap=2,
+                        ),
+                        min_height="100px",
+                        padding="1rem",
+                    ),
+                    style="border: 1px dashed var(--color-gray-300); border-radius: 8px;",
+                ),
+            ),
+            _showcase_card(
+                "Sidebar Layout",
+                box(
+                    sidebar_layout(
+                        vstack(
+                            text("Main content area"),
+                            text("This is where primary content goes", variant="caption"),
+                            gap=2,
+                        ),
+                        sidebar=vstack(
+                            text("Sidebar", weight="semibold"),
+                            text("Filters, nav, etc.", variant="caption"),
+                            gap=2,
+                        ),
+                        sidebar_width="150px",
+                    ),
+                    style="height: 200px; border: 1px dashed var(--color-gray-300); border-radius: 8px; overflow: hidden;",
                 ),
             ),
             gap=4,
