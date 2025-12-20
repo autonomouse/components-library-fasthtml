@@ -81,22 +81,24 @@ def form_modal(
     """
     actual_form_id = form_id or f"{modal_id}-form"
 
-    # Build form content with fields and optional error
+    # Build form content with fields and error placeholder
     form_content_items = list(form_fields)
 
-    if error_message:
-        form_content_items.append(
-            Div(
-                text(error_message, style="color: var(--color-error);"),
-                id=f"{modal_id}-error",
-                style="margin-top: 0.5rem;",
-            )
+    # Always include error div (empty or with message) so HX-Retarget can find it
+    error_content = text(error_message, style="color: var(--color-error);") if error_message else ""
+    form_content_items.append(
+        Div(
+            error_content,
+            id=f"{modal_id}-error",
+            style="margin-top: 0.5rem;" if error_message else "",
         )
+    )
 
     # Form element with HTMX attributes
     form_attrs: dict[str, Any] = {
         "id": actual_form_id,
         "method": form_method,
+        "action": form_action,  # Fallback if HTMX doesn't intercept
     }
 
     # Use HTMX for form submission
@@ -106,13 +108,16 @@ def form_modal(
         form_attrs["hx_put"] = form_action
     elif form_method.upper() == "PATCH":
         form_attrs["hx_patch"] = form_action
-    else:
-        form_attrs["action"] = form_action
 
     if form_target:
         form_attrs["hx_target"] = form_target
     if form_swap:
         form_attrs["hx_swap"] = form_swap
+
+    # Close modal on successful submission
+    form_attrs["hx-on:htmx:after-request"] = (
+        "if(event.detail.successful) this.closest('dialog').close()"
+    )
 
     form_element = Form(
         Div(

@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from fasthtml.common import Button, Dialog, Div
+from fasthtml.common import Button, Dialog, Div, Style
 
 from ...design_system.tokens import BorderRadius, Colors, Shadows, Spacing
 from ...utils import generate_style_string, merge_classes
@@ -16,6 +16,33 @@ colors = Colors()
 spacing = Spacing()
 shadows = Shadows()
 radius = BorderRadius()
+
+# Modal CSS for centering, backdrop, and theme colors
+MODAL_CSS = """
+dialog.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    background: var(--theme-card-bg, var(--theme-background, #ffffff));
+    color: var(--theme-text-primary, #171717);
+    border: 1px solid var(--theme-card-border, var(--theme-border, #e5e5e5));
+}
+dialog.modal::backdrop {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+}
+dialog.modal[open] {
+    display: flex;
+    flex-direction: column;
+}
+dialog.modal .modal-header {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--theme-text-primary, #171717);
+}
+"""
 
 
 def modal(
@@ -27,7 +54,7 @@ def modal(
     open: bool = False,
     cls: str | None = None,
     **kwargs: Any,
-) -> Dialog:
+) -> Div:
     """
     Modal dialog component using native HTML dialog element.
 
@@ -46,7 +73,7 @@ def modal(
         **kwargs: Additional HTML attributes
 
     Returns:
-        Dialog element with modal structure
+        Div containing modal styles and Dialog element
 
     Example:
         >>> modal(
@@ -67,15 +94,13 @@ def modal(
     """
     css_class = merge_classes("modal", cls)
 
-    # Modal styles
+    # Modal styles (colors handled by MODAL_CSS for theme support)
     modal_style = generate_style_string(
         max_width=size,
         width="100%",
         padding="0",
-        border="none",
         border_radius=radius.lg,
         box_shadow=shadows.xl,
-        background_color=colors.background,
     )
 
     # Modal container content
@@ -88,7 +113,7 @@ def modal(
             align_items="center",
             justify_content="space-between",
             padding=spacing._6,
-            border_bottom=f"1px solid {colors.border}",
+            border_bottom="1px solid var(--theme-border, #e5e5e5)",
         )
 
         close_btn_style = generate_style_string(
@@ -96,7 +121,7 @@ def modal(
             border="none",
             font_size="1.5rem",
             cursor="pointer",
-            color=colors.text_secondary,
+            color="var(--theme-text-secondary, #525252)",
             padding="0",
             margin_left="auto",
         )
@@ -123,18 +148,21 @@ def modal(
     if footer:
         footer_style = generate_style_string(
             padding=spacing._6,
-            border_top=f"1px solid {colors.border}",
+            border_top="1px solid var(--theme-border, #e5e5e5)",
             display="flex",
             justify_content="flex-end",
             gap=spacing._3,
         )
         modal_content.append(Div(footer, cls="modal-footer", style=footer_style))
 
-    return Dialog(
-        *modal_content,
-        id=modal_id,
-        cls=css_class,
-        style=modal_style,
-        open=open if open else None,
-        **kwargs,
+    return Div(
+        Style(MODAL_CSS),
+        Dialog(
+            *modal_content,
+            id=modal_id,
+            cls=css_class,
+            style=modal_style,
+            open=open if open else None,
+            **kwargs,
+        ),
     )
