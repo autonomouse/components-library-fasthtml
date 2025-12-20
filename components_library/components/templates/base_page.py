@@ -10,7 +10,6 @@ from ...design_system.theme import (
     base_styles,
     component_styles,
     htmx_script,
-    menu_click_outside_script,
 )
 
 
@@ -76,9 +75,6 @@ def base_page(
 
     if include_htmx:
         head_elements.append(NotStr(htmx_script()))
-
-    # Add menu click-outside script for dropdown menus
-    head_elements.append(NotStr(menu_click_outside_script()))
 
     # Add app version console.log for consistency with JS apps
     if app_name and app_version:

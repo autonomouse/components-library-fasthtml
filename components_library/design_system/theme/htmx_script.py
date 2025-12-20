@@ -34,21 +34,6 @@ def menu_click_outside_script() -> str:
     """
     Return minimal script for closing dropdown menus on outside clicks.
 
-    This handles the click-outside-to-close behavior for <details>-based menus.
-    The HTML `name` attribute handles mutual exclusion (only one open at a time),
-    but click-outside requires minimal JavaScript.
-
-    Returns:
-        HTML script tag for menu click-outside behavior
+    DEPRECATED: Replaced by CSS-only solution in base_styles.py
     """
-    return """
-    <script>
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('details.menu-wrapper')) {
-                document.querySelectorAll('details.menu-wrapper[open]').forEach(function(d) {
-                    d.removeAttribute('open');
-                });
-            }
-        });
-    </script>
-    """
+    return ""

@@ -86,10 +86,12 @@ from ..molecules import (
     item_details,
     job_status_banner,
     loading_screen,
+    nav_card,
     overflow_tooltip,
     result_card,
     search_bar,
     search_results,
+    stat_card,
     tab_state_wrapper,
     tag_manager,
     token_pill,
@@ -585,6 +587,29 @@ def _molecules_showcase() -> Any:
                     "Quick Action",
                     "Click this card to trigger an action",
                     hx_get="/example",
+                ),
+            ),
+            _showcase_card(
+                "Nav Card",
+                nav_card(
+                    "Navigation",
+                    "A link to another page",
+                    href="/example",
+                ),
+            ),
+            _showcase_card(
+                "Stat Card",
+                hstack(
+                    stat_card("Total Users", "1,234", icon="👤"),
+                    stat_card(
+                        "Revenue",
+                        "$50,000",
+                        icon="💰",
+                        gradient_start="#f59e0b",
+                        gradient_end="#ef4444",
+                    ),
+                    gap=3,
+                    style="flex-wrap: wrap;",
                 ),
             ),
             _showcase_card(

@@ -169,4 +169,18 @@ def base_styles() -> str:
             }}
         }}
 
+        /* ===== MENU CLICK OUTSIDE HANDLER (CSS-ONLY) ===== */
+        details.menu-wrapper[open] > summary::before {{
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0); /* Transparent overlay */
+            z-index: 50; /* Above everything else */
+            cursor: default;
+        }}
+
+
     """

@@ -20,11 +20,13 @@ from .htmx_tag_manager import htmx_tag_manager
 from .item_details import item_details
 from .job_status_banner import BackgroundJob, job_status_banner
 from .loading_screen import loading_screen
+from .nav_card import nav_card
 from .overflow_tooltip import overflow_tooltip
 from .pagination import htmx_pagination
 from .result_card import result_card
 from .search_bar import search_bar
 from .search_results import search_results
+from .stat_card import stat_card
 from .tab_state_wrapper import tab_state_wrapper
 from .tag_manager import TagItem, tag_manager
 from .token_pill import Token, token_pill
@@ -61,10 +63,12 @@ __all__ = [
     "item_details",
     "job_status_banner",
     "loading_screen",
+    "nav_card",
     "overflow_tooltip",
     "result_card",
     "search_bar",
     "search_results",
+    "stat_card",
     "tab_state_wrapper",
     "tag_manager",
     "token_pill",
