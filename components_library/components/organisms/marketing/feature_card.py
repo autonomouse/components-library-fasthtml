@@ -28,8 +28,8 @@ def feature_card(
 
     card_styles = Style("""
         .feature-card {
-            background: var(--marketing-card-bg);
-            border: 1px solid var(--marketing-card-border);
+            background: var(--theme-card-bg);
+            border: 1px solid var(--theme-card-border);
             border-radius: 1rem;
             padding: 2rem;
             text-align: center;
@@ -46,7 +46,7 @@ def feature_card(
 
         .feature-card:hover {
             transform: translateY(-5px);
-            border-color: var(--marketing-accent-primary);
+            border-color: var(--theme-accent-primary);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
@@ -65,7 +65,7 @@ def feature_card(
         .feature-title {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--marketing-text-primary);
+            color: var(--theme-text-primary);
             margin: 0;
         }
 
@@ -80,7 +80,7 @@ def feature_card(
 
         .feature-progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, var(--marketing-accent-primary), var(--marketing-accent-secondary));
+            background: linear-gradient(90deg, var(--theme-accent-primary), var(--theme-accent-secondary));
             border-radius: 3px;
             width: 0%; /* animate to width */
             transition: width 1s ease-out;
@@ -127,7 +127,7 @@ def feature_card(
         Div(icon_el, cls="feature-icon-wrapper"),
         # Content
         H3(title, cls="feature-title"),
-        P(description, style="color: var(--marketing-text-secondary); opacity: 0.8;")
+        P(description, style="color: var(--theme-text-secondary); opacity: 0.8;")
         if description
         else None,
         # Progress bar (optional visual candy)

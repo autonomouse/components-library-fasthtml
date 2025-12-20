@@ -8,6 +8,8 @@ from typing import Any
 from fasthtml.common import Div
 from fasthtml.xtend import A
 
+from ...utils import merge_classes
+
 
 def _get_initials(name: str | None = None, email: str | None = None) -> str:
     """Generate initials from name or email."""
@@ -124,10 +126,12 @@ def avatar(
         )
 
     # Create avatar container
+    css_class = merge_classes("user-avatar", kwargs.pop("cls", None))
+
     avatar_container = Div(
         avatar_content,
         style=avatar_styles,
-        cls="user-avatar",
+        cls=css_class,
         **kwargs,
     )
 

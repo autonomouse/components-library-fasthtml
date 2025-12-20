@@ -26,15 +26,42 @@ def base_styles() -> str:
         }}
 
         :root {{
-            /* Marketing / Space Theme Variables */
-            --marketing-bg-start: #0a0a1f;
-            --marketing-bg-end: #1a1a3a;
-            --marketing-accent-primary: #00f0ff;
-            --marketing-accent-secondary: #7928ca;
-            --marketing-text-primary: #ffffff;
-            --marketing-text-secondary: #e0e0e0;
-            --marketing-card-bg: rgba(255, 255, 255, 0.03);
-            --marketing-card-border: rgba(255, 255, 255, 0.1);
+            /* Space Theme Variables */
+            --theme-space-bg-start: #0a0a1f;
+            --theme-space-bg-end: #1a1a3a;
+            --theme-space-accent-primary: #00f0ff;
+            --theme-space-accent-secondary: #7928ca;
+            --theme-space-text-primary: #ffffff;
+            --theme-space-text-secondary: #e0e0e0;
+            --theme-space-card-bg: rgba(255, 255, 255, 0.03);
+            --theme-space-card-border: rgba(255, 255, 255, 0.1);
+
+            /* Generic Theme Mapping (aliases) */
+            --theme-bg-start: var(--theme-space-bg-start);
+            --theme-bg-end: var(--theme-space-bg-end);
+            --theme-accent-primary: var(--theme-space-accent-primary);
+            --theme-accent-secondary: var(--theme-space-accent-secondary);
+            --theme-text-primary: var(--theme-space-text-primary);
+            --theme-text-secondary: var(--theme-space-text-secondary);
+            --theme-card-bg: var(--theme-space-card-bg);
+            --theme-card-border: var(--theme-space-card-border);
+
+            /* Standard Semantic Logic */
+            --theme-background: rgba(10, 10, 31, 0.6); /* Semi-transparent dark for inputs */
+            --theme-border: rgba(255, 255, 255, 0.1);
+            --theme-border-focus: var(--theme-accent-primary);
+        }}
+
+        /* Autofill Styles - Force dark background */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {{
+            -webkit-text-fill-color: var(--theme-text-primary) !important;
+            color: var(--theme-text-primary) !important;
+            -webkit-box-shadow: 0 0 0px 1000px #0a0a1f inset !important;
+            transition: background-color 5000s ease-in-out 0s;
+            caret-color: var(--theme-text-primary);
         }}
 
         html {{
@@ -47,8 +74,8 @@ def base_styles() -> str:
             font-family: {typography.font_sans};
             font-size: {typography.base.size};
             line-height: {typography.base.line_height};
-            color: {colors.text_primary};
-            background-color: {colors.background};
+            color: var(--theme-text-primary);
+            background: radial-gradient(circle at center, var(--theme-bg-end) 0%, var(--theme-bg-start) 100%);
             min-height: 100vh;
         }}
 
@@ -137,9 +164,9 @@ def base_styles() -> str:
                 min-width: auto !important;
             }}
 
-            /* Ensure navigation doesn't overflow */
             .navigation .hstack {{
                 gap: 0.5rem !important;
             }}
         }}
+
     """

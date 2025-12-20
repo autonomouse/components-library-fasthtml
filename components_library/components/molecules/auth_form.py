@@ -154,6 +154,7 @@ def auth_form(
             link(
                 "Forgot your password?",
                 href="/forgot-password",
+                style="color: var(--theme-text-secondary);",
                 cls="text-sm",
             )
         )
@@ -162,6 +163,7 @@ def auth_form(
             link(
                 "Already have an account? Sign in",
                 href="/login",
+                style="color: var(--theme-text-secondary);",
                 cls="text-sm",
             )
         )

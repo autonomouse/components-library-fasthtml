@@ -100,10 +100,10 @@ class Colors(BaseModel, frozen=True):
     )
 
     # Semantic color aliases (computed as regular fields with defaults)
-    text_primary: str = "#171717"  # neutral.s900
-    text_secondary: str = "#525252"  # neutral.s600
-    text_disabled: str = "#a3a3a3"  # neutral.s400
-    background: str = "#ffffff"
-    background_alt: str = "#fafafa"  # neutral.s50
-    border: str = "#e5e5e5"  # neutral.s200
-    border_focus: str = "#3b82f6"  # primary.s500
+    text_primary: str = "var(--theme-text-primary, #171717)"
+    text_secondary: str = "var(--theme-text-secondary, #525252)"
+    text_disabled: str = "var(--theme-text-disabled, #a3a3a3)"
+    background: str = "var(--theme-background, #ffffff)"
+    background_alt: str = "var(--theme-background-alt, #fafafa)"
+    border: str = "var(--theme-border, #e5e5e5)"
+    border_focus: str = "var(--theme-border-focus, #3b82f6)"

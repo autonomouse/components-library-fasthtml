@@ -13,6 +13,7 @@ from .header import header
 from .navigation import navigation
 from .notifications import NotificationItem, NotificationTag, notifications
 from .page_header import page_header
+from .profile import profile_card
 
 __all__ = [
     # Data classes
@@ -29,5 +30,6 @@ __all__ = [
     "navigation",
     "notifications",
     "page_header",
+    "profile_card",
     "selected_tokens_partial",
 ]

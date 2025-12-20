@@ -44,7 +44,7 @@ def hero_section(
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: radial-gradient(circle at center, #1a1a4a 0%, var(--marketing-bg-start) 70%);
+            background: radial-gradient(circle at center, var(--theme-bg-gradient-start, #1a1a4a) 0%, var(--theme-bg-start) 70%);
             overflow: hidden;
             padding: 4rem 1rem;
         }
@@ -60,7 +60,7 @@ def hero_section(
             font-weight: 800;
             line-height: 1.1;
             letter-spacing: -0.02em;
-            background: linear-gradient(135deg, #fff 30%, var(--marketing-accent-primary) 100%);
+            background: linear-gradient(135deg, #fff 30%, var(--theme-accent-primary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 1.5rem;
@@ -69,7 +69,7 @@ def hero_section(
 
         .hero-subheadline {
             font-size: 1.5rem;
-            color: var(--marketing-text-secondary);
+            color: var(--theme-text-secondary);
             margin-bottom: 2.5rem;
             font-weight: 400;
             max-width: 600px;
