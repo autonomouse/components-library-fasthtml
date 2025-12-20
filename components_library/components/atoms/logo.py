@@ -104,7 +104,7 @@ def logo(
             logo_element,
             href=href,
             cls=css_class,
-            style="text-decoration: none; display: inline-block;",
+            style="text-decoration: none; display: flex; align-items: center;",
             **kwargs,
         )
 

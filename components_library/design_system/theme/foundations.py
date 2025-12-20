@@ -25,6 +25,18 @@ def base_styles() -> str:
             padding: 0;
         }}
 
+        :root {{
+            /* Marketing / Space Theme Variables */
+            --marketing-bg-start: #0a0a1f;
+            --marketing-bg-end: #1a1a3a;
+            --marketing-accent-primary: #00f0ff;
+            --marketing-accent-secondary: #7928ca;
+            --marketing-text-primary: #ffffff;
+            --marketing-text-secondary: #e0e0e0;
+            --marketing-card-bg: rgba(255, 255, 255, 0.03);
+            --marketing-card-border: rgba(255, 255, 255, 0.1);
+        }}
+
         html {{
             font-size: 16px;
             -webkit-font-smoothing: antialiased;

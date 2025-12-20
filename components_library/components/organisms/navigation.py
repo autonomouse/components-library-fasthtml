@@ -170,6 +170,7 @@ def navigation(
                     size="lg",
                     href="/" if not user else "/app",
                 ),
+                align="center",
                 cls="nav-brand",
             ),
             # Desktop navigation links (hidden on mobile)
