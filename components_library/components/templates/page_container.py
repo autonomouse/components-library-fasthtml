@@ -40,10 +40,14 @@ def page_container(
         ...     background="var(--color-background-alt)"
         ... )
     """
+    # Merge min-height with any provided style
+    user_style = kwargs.pop("style", "")
+    container_style = f"min-height: {min_height}; {user_style}".strip()
+
     return box(
         box(children, padding=padding or "0"),
         background=background,
-        style=f"min-height: {min_height};",
+        style=container_style,
         padding="0",
         cls=cls,
         **kwargs,
