@@ -3,7 +3,6 @@
 from .action_card import action_card
 from .auth_form import auth_form
 from .breadcrumbs import BreadcrumbItem, breadcrumbs
-from .character_card import character_card
 from .completion_circle import completion_circle
 from .dashboard_nav_card import dashboard_nav_card
 from .dashboard_stat_card import dashboard_stat_card
@@ -12,6 +11,7 @@ from .detail_row import detail_row
 from .details_section import details_section
 from .discrete_slider import discrete_slider
 from .enhanced_search_bar import enhanced_search_bar
+from .entity_card import entity_card
 from .error_fallback import error_fallback
 from .favorite_button import favorite_button
 from .file_dropzone import file_dropzone
@@ -52,7 +52,6 @@ __all__ = [
     "action_card",
     "auth_form",
     "breadcrumbs",
-    "character_card",
     "completion_circle",
     "dashboard_nav_card",
     "dashboard_stat_card",
@@ -61,6 +60,7 @@ __all__ = [
     "details_section",
     "discrete_slider",
     "enhanced_search_bar",
+    "entity_card",
     "error_fallback",
     "favorite_button",
     "file_dropzone",

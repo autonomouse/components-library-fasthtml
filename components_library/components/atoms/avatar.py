@@ -27,6 +27,7 @@ def _get_initials(name: str | None = None, email: str | None = None) -> str:
 def avatar(
     email: str | None = None,
     name: str | None = None,
+    image_url: str | None = None,
     size: int = 40,
     href: str | None = None,
     **kwargs: Any,
@@ -35,14 +36,16 @@ def avatar(
     Create an avatar component with Gravatar support.
 
     Features:
+    - Custom image URL support
     - Gravatar integration for profile images
-    - Fallback to initials if no Gravatar
+    - Fallback to initials if no image/Gravatar
     - Configurable size and styling
     - Optional link wrapper
 
     Args:
         email: User email for Gravatar lookup
         name: User name for initials fallback
+        image_url: Direct URL to profile image
         size: Avatar size in pixels (default: 40)
         href: Optional link URL for the avatar
         **kwargs: Additional attributes for the avatar container
@@ -54,15 +57,15 @@ def avatar(
         >>> avatar(email="user@example.com", name="John Doe", size=50)
         >>> avatar(name="Jane Smith", href="/profile")
     """
-    # Generate Gravatar URL if email provided
-    gravatar_url = None
-    if email:
+    # Determine image source
+    final_image_url = image_url
+    if not final_image_url and email:
         # Create MD5 hash of email for Gravatar (MD5 is required by Gravatar API)
         # Not a security concern - MD5 is Gravatar's specified hash algorithm
         email_hash = hashlib.md5(  # nosec B324
             email.lower().strip().encode(), usedforsecurity=False
         ).hexdigest()
-        gravatar_url = f"https://www.gravatar.com/avatar/{email_hash}?s={size}&d=404"
+        final_image_url = f"https://www.gravatar.com/avatar/{email_hash}?s={size}&d=404"
 
     # Generate initials from name
     initials = ""
@@ -95,7 +98,7 @@ def avatar(
 
     # Avatar content - show initials by default, Gravatar as overlay
     avatar_content = Div(
-        initials,
+        initials if not final_image_url else "",
         style=f"""
             width: 100%;
             height: 100%;
@@ -110,14 +113,14 @@ def avatar(
         """,
     )
 
-    # Add Gravatar as background if available
-    if gravatar_url:
+    # Add Image as background if available
+    if final_image_url:
         avatar_content = Div(
             avatar_content,
             style=f"""
                 width: 100%;
                 height: 100%;
-                background-image: url('{gravatar_url}');
+                background-image: url('{final_image_url}');
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -127,10 +130,12 @@ def avatar(
 
     # Create avatar container
     css_class = merge_classes("user-avatar", kwargs.pop("cls", None))
+    extra_style = kwargs.pop("style", "")
+    combined_style = f"{avatar_styles} {extra_style}".strip()
 
     avatar_container = Div(
         avatar_content,
-        style=avatar_styles,
+        style=combined_style,
         cls=css_class,
         **kwargs,
     )

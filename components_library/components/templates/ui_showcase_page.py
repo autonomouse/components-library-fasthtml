@@ -77,6 +77,7 @@ from ..molecules import (
     details_section,
     discrete_slider,
     enhanced_search_bar,
+    entity_card,
     error_fallback,
     favorite_button,
     file_dropzone,
@@ -666,6 +667,27 @@ def _molecules_showcase() -> Any:
                 enhanced_search_bar(
                     placeholder="Enhanced search with icons...",
                     right_icon="filter",
+                ),
+            ),
+            _showcase_card(
+                "Entity Card",
+                grid(
+                    entity_card(
+                        title="Hero Character",
+                        subtitle="Protagonist",
+                        image_url="https://ui-avatars.com/api/?name=Hero",
+                        meta="Level 5 • 100 XP",
+                        tags=["Warrior", "Leader"],
+                    ),
+                    entity_card(
+                        title="Magic Sword",
+                        subtitle="Legendary Item",
+                        image_url="https://ui-avatars.com/api/?name=Sword&background=random",
+                        meta="Damage: 50-100",
+                        tags=["Weapon", "Rare"],
+                    ),
+                    columns=2,
+                    gap="1rem",
                 ),
             ),
             _showcase_card(

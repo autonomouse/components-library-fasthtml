@@ -209,6 +209,26 @@ ICON_REFRESH = """<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="
 <path d="M3 21v-5h5"/>
 </svg>"""
 
+# Book icon
+ICON_BOOK = """<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
+</svg>"""
+
+# Script/Screenplay icon
+ICON_SCRIPT = """<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+<polyline points="14 2 14 8 20 8"/>
+<path d="M12 13v6"/>
+<path d="M12 18l3-3"/>
+<path d="M9 15l3 3"/>
+</svg>"""
+
+# Audio/Headphones icon
+ICON_AUDIO = """<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+<path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+</svg>"""
+
 # =============================================================================
 # Icon Name Registry - maps friendly names to icon constants
 # =============================================================================
@@ -242,6 +262,9 @@ ICON_REGISTRY: dict[str, str] = {
     "filter": ICON_FILTER,
     "sort": ICON_SORT,
     "refresh": ICON_REFRESH,
+    "book": ICON_BOOK,
+    "script": ICON_SCRIPT,
+    "audio": ICON_AUDIO,
 }
 
 
@@ -320,5 +343,8 @@ IconName = Literal[
     "filter",
     "sort",
     "refresh",
+    "book",
+    "script",
+    "audio",
 ]
 """Type alias for valid icon names."""

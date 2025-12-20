@@ -10,7 +10,7 @@ from ...utils import merge_classes
 
 
 def button_link(
-    text: str,
+    *children: Any,
     href: str,
     variant: Literal["solid", "outline", "ghost"] = "solid",
     color_palette: Literal["brand", "gray", "red", "green", "blue"] = "brand",
@@ -33,7 +33,7 @@ def button_link(
     while maintaining button appearance.
 
     Args:
-        text: Button text content
+        *children: Button content (text, icons, etc.)
         href: Link destination URL
         variant: Button style variant (solid, outline, ghost)
         color_palette: Color scheme (brand, gray, red, green, blue)
@@ -102,4 +102,4 @@ def button_link(
     if hx_swap:
         attrs["hx_swap"] = hx_swap
 
-    return A(text, **{**attrs, **kwargs})
+    return A(*children, **{**attrs, **kwargs})
