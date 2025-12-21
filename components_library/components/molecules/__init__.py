@@ -24,6 +24,7 @@ from .form_modal import form_modal
 from .hero_card import hero_card
 from .htmx_file_dropzone import htmx_file_dropzone
 from .htmx_tag_manager import htmx_tag_manager
+from .icon_card import icon_card
 from .item_details import item_details
 from .job_status_banner import BackgroundJob, job_status_banner
 from .loading_screen import loading_screen
@@ -75,6 +76,7 @@ __all__ = [
     "htmx_file_dropzone",
     "htmx_pagination",
     "htmx_tag_manager",
+    "icon_card",
     "item_details",
     "job_status_banner",
     "loading_screen",

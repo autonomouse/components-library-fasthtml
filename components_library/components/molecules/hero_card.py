@@ -100,9 +100,13 @@ def hero_card(
 
     css_class = merge_classes("hero-card hover-glow hover:translate-y-[-4px]", cls)
 
+    # Merge any incoming style with our base_style
+    extra_style = kwargs.pop("style", "")
+    combined_style = f"{base_style} {extra_style}".strip()
+
     card_component = card(
         layout,
-        style=base_style,
+        style=combined_style,
         cls=css_class,
         **kwargs,
     )
