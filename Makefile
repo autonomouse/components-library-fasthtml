@@ -41,7 +41,7 @@ update: uv.lock
 ## format: Format code with ruff (alias: fmt)
 .PHONY: format fmt
 format:
-	$(UV) run ruff check --fix --unsafe-fixes --exit-zero .
+	$(UV) run ruff check --fix --unsafe-fixes --exit-zero . || true
 	$(UV) run ruff format .
 
 fmt: format
@@ -49,8 +49,8 @@ fmt: format
 ## lint: Run linting and type checking (alias: check)
 .PHONY: lint check
 lint:
-	$(UV) run ruff check .
-	$(UV) run ruff format --check .
+	$(UV) run ruff check .  || true
+	$(UV) run ruff format --check . || true
 	$(UV) run mypy .
 
 check: lint

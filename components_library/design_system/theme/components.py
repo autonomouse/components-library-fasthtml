@@ -550,6 +550,12 @@ def _feedback_component_styles() -> str:
             color: {colors.error.s800};
         }}
 
+        .badge-outline {{
+            background-color: transparent;
+            border: 1px solid {colors.neutral.s300};
+            color: {colors.text_secondary};
+        }}
+
         /* Tag */
         .tag {{
             display: inline-flex;

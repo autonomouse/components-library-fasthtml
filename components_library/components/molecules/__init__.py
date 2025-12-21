@@ -21,6 +21,7 @@ from .filter_panel import FilterGroup, filter_panel
 from .footer import footer
 from .form_card_select import form_card_select
 from .form_modal import form_modal
+from .hero_card import hero_card
 from .htmx_file_dropzone import htmx_file_dropzone
 from .htmx_tag_manager import htmx_tag_manager
 from .item_details import item_details
@@ -70,6 +71,7 @@ __all__ = [
     "footer",
     "form_card_select",
     "form_modal",
+    "hero_card",
     "htmx_file_dropzone",
     "htmx_pagination",
     "htmx_tag_manager",

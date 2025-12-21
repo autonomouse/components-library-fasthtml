@@ -11,7 +11,7 @@ from ...utils import merge_classes
 
 def badge(
     text: str,
-    variant: Literal["brand", "gray", "success", "error"] = "gray",
+    variant: Literal["brand", "gray", "success", "error", "outline"] = "gray",
     size: Literal["sm", "md"] = "md",
     cls: str | None = None,
     **kwargs: Any,
@@ -21,7 +21,7 @@ def badge(
 
     Args:
         text: Badge text content
-        variant: Color variant (brand, gray, success, error)
+        variant: Color variant (brand, gray, success, error, outline)
         size: Badge size (sm, md)
         cls: Additional CSS classes
         **kwargs: Additional HTML attributes

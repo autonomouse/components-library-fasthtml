@@ -3,6 +3,8 @@
 from .auth_page_layout import auth_page_layout
 from .base_page import base_page
 from .centered_content import centered_content
+from .entity_detail_layout import entity_detail_layout
+from .entity_overview_layout import entity_overview_layout
 from .error_template import error_template
 from .labs_intro_page import BadgeConfig, labs_intro_page
 from .page_container import page_container
@@ -16,6 +18,8 @@ __all__ = [
     "auth_page_layout",
     "base_page",
     "centered_content",
+    "entity_detail_layout",
+    "entity_overview_layout",
     "error_template",
     "labs_intro_page",
     "page_container",
