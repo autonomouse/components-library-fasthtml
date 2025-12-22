@@ -97,6 +97,7 @@ from ..molecules import (
     nav_card,
     overflow_tooltip,
     result_card,
+    scene_card,
     search_bar,
     search_results,
     stat_card,
@@ -116,6 +117,8 @@ from ..organisms import (
     feature_card,
     header,
     hero_section,
+    kanban_board,
+    kanban_column,
     navigation,
     notifications,
     page_header,
@@ -1047,6 +1050,32 @@ def _molecules_showcase() -> Any:
                 "User Nav",
                 user_nav(user={"email": "user@example.com", "name": "John Doe"}),
             ),
+            _showcase_card(
+                "Scene Card",
+                hstack(
+                    scene_card(
+                        title="Opening Scene",
+                        characters=[
+                            {"name": "Alice", "avatar_url": None},
+                            {"name": "Bob", "avatar_url": None},
+                        ],
+                        location_name="Central Plaza",
+                        status="draft",
+                        href="/stories/1/scenes/1",
+                    ),
+                    scene_card(
+                        title="The Confrontation",
+                        characters=[
+                            {"name": "Hero", "avatar_url": None},
+                        ],
+                        location_name="Dark Castle",
+                        status="complete",
+                        accent_color="#ff6b6b",
+                    ),
+                    gap=3,
+                    style="flex-wrap: wrap;",
+                ),
+            ),
             gap=4,
         ),
         open=True,
@@ -1210,6 +1239,46 @@ def _organisms_showcase() -> Any:
                         },
                     ],
                     href_template="/phases/{id}",
+                ),
+            ),
+            _showcase_card(
+                "Kanban Board",
+                kanban_board(
+                    kanban_column(
+                        "Act 1",
+                        scene_card(
+                            title="Opening",
+                            characters=[{"name": "Hero", "avatar_url": None}],
+                            location_name="Village",
+                            status="complete",
+                        ),
+                        scene_card(
+                            title="Call to Adventure",
+                            characters=[{"name": "Hero", "avatar_url": None}],
+                            location_name="Forest",
+                            status="draft",
+                        ),
+                        accent_color="#00f0ff",
+                    ),
+                    kanban_column(
+                        "Act 2",
+                        scene_card(
+                            title="The Journey",
+                            characters=[
+                                {"name": "Hero", "avatar_url": None},
+                                {"name": "Mentor", "avatar_url": None},
+                            ],
+                            location_name="Mountains",
+                            status="draft",
+                        ),
+                        accent_color="#f0f000",
+                    ),
+                    kanban_column(
+                        "Act 3",
+                        empty_message="No scenes yet",
+                        accent_color="#ff6b6b",
+                    ),
+                    min_height="300px",
                 ),
             ),
             gap=4,

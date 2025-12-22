@@ -32,12 +32,15 @@ from .nav_card import nav_card
 from .overflow_tooltip import overflow_tooltip
 from .pagination import htmx_pagination
 from .result_card import result_card
+from .scene_card import scene_card
 from .search_bar import search_bar
 from .search_results import search_results
 from .stat_card import stat_card
 from .tab_state_wrapper import tab_state_wrapper
 from .tag_manager import TagItem, tag_manager
 from .timeline_card import timeline_card
+from .timeline_event_card import timeline_event_card
+from .timeline_lane import timeline_lane
 from .token_pill import Token, token_pill
 from .user_actions import UserAction, user_actions
 from .user_nav import user_nav
@@ -83,12 +86,15 @@ __all__ = [
     "nav_card",
     "overflow_tooltip",
     "result_card",
+    "scene_card",
     "search_bar",
     "search_results",
     "stat_card",
     "tab_state_wrapper",
     "tag_manager",
     "timeline_card",
+    "timeline_event_card",
+    "timeline_lane",
     "token_pill",
     "user_actions",
     "user_nav",

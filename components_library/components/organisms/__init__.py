@@ -10,6 +10,8 @@ from .articles_search import (
 )
 from .data_table import data_table
 from .header import header
+from .kanban_board import kanban_board
+from .kanban_column import kanban_column
 from .marketing import feature_card, hero_section
 from .navigation import navigation
 from .notifications import NotificationItem, NotificationTag, notifications
@@ -31,6 +33,8 @@ __all__ = [
     "feature_card",
     "header",
     "hero_section",
+    "kanban_board",
+    "kanban_column",
     "navigation",
     "notifications",
     "page_header",
