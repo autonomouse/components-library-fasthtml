@@ -1,14 +1,14 @@
 """Reusable services for API interactions.
 
 Provides service classes for common API operations that can be shared
-across Labs applications.
+across applications.
 
 Usage:
     from components_library.services import ConceptsService, DocumentsService
-    from components_library.api.v2 import ApiClient
+    from components_library.api.rest import ApiClient
 
     # Create client with your app's settings
-    client = ApiClient(base_url="https://api.example.com/v2")
+    client = ApiClient(base_url="https://api.example.com")
 
     # Create service instances
     concepts = ConceptsService(client)

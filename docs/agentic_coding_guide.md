@@ -150,7 +150,7 @@ This library follows atomic design principles. For detailed information on compo
 
 Beyond UI components, the library provides reusable utilities:
 
-- **API Client** (`components_library.api.v2`) - Versioned HTTP client for backend APIs
+- **API Client** (`components_library.api.rest`) - HTTP client for backend APIs
 - **Session Utilities** (`components_library.utils.session`) - Starlette session management helpers
 
 See [Feature Development Guide](./feature-development-guide.md#shared-utilities) for usage examples.
@@ -291,10 +291,10 @@ make test     # Run tests
 
 ### Shared API Client
 
-The library provides a versioned API client for backend calls:
+The library provides an API client for backend calls:
 
 ```python
-from components_library.api.v2 import ApiClient
+from components_library.api.rest import ApiClient
 from components_library.api import ApiSuccess, ApiFailure
 
 # Create client with your app's configuration
@@ -314,7 +314,6 @@ else:
 
 **Key points:**
 - `ApiClient` requires explicit configuration (dependency injection)
-- Versioned structure (`api/v2/`) for future compatibility with `api/v3/`
 - Returns typed `ApiSuccess` or `ApiFailure` responses
 
 ### Route Pattern

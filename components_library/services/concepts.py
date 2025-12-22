@@ -29,10 +29,10 @@ class ConceptsService:
     from the ontology API, useful for autocomplete and entity lookup.
 
     Example:
-        from components_library.api.v2 import ApiClient
+        from components_library.api.rest import ApiClient
         from components_library.services import ConceptsService
 
-        client = ApiClient(base_url="https://api.example.com/v2")
+        client = ApiClient(base_url="https://api.example.com")
         concepts = ConceptsService(client)
 
         # Search for concepts

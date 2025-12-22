@@ -1,15 +1,15 @@
-"""API v2 client implementation.
+"""REST API client implementation.
 
-Provides an async HTTP client for the V2 API. The client requires
+Provides an async HTTP client for REST APIs. The client requires
 explicit configuration (base_url) following dependency injection principles -
 it does not read from application settings or environment variables.
 
 Usage:
-    from components_library.api.v2 import ApiClient
+    from components_library.api.rest import ApiClient
 
     # Application creates configured instance
     client = ApiClient(
-        base_url="https://api.galactic.com/v2",
+        base_url="https://api.example.com",
         timeout=30,
     )
 
@@ -31,10 +31,10 @@ from ..types import ApiError, ApiFailure, ApiResponse, ApiSuccess
 
 
 class ApiClient:
-    """Async HTTP client for API v2.
+    """Async HTTP client for REST APIs.
 
     This client implements the ApiClientProtocol and can be used
-    interchangeably with other API version clients (v3, etc.).
+    with any REST API endpoint.
 
     Attributes:
         base_url: Base URL for API requests (required)
@@ -42,7 +42,7 @@ class ApiClient:
 
     Example:
         # In your application's service layer
-        from components_library.api.v2 import ApiClient
+        from components_library.api.rest import ApiClient
         from myapp.config import settings
 
         client = ApiClient(

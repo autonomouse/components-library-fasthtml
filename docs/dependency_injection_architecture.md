@@ -312,11 +312,11 @@ The library provides shared utilities that follow the same DI principles - they 
 
 ### API Client
 
-The library includes a versioned API client for backend services:
+The library includes an API client for backend services:
 
 ```python
 # Library provides the tool (no config dependencies)
-from components_library.api.v2 import ApiClient
+from components_library.api.rest import ApiClient
 from components_library.api import ApiResponse, ApiSuccess, ApiFailure
 
 # Application provides configuration

@@ -851,11 +851,11 @@ Beyond UI components, the library provides reusable utilities for common applica
 
 ### API Client
 
-A versioned HTTP client for backend API calls. The library provides the client class; your application provides configuration:
+An HTTP client for backend API calls. The library provides the client class; your application provides configuration:
 
 ```python
 # In your app's services layer
-from components_library.api.v2 import ApiClient
+from components_library.api.rest import ApiClient
 from components_library.api import ApiSuccess, ApiFailure
 
 # Create configured instance
@@ -876,7 +876,7 @@ async def get_items(query: str, access_token: str) -> list[dict]:
     raise Exception(response.error.message)
 ```
 
-**Versioning**: The `api/v2/` structure supports future `api/v3/` as a drop-in replacement. Both versions implement the same `ApiClientProtocol` interface.
+**Protocol**: All API clients implement the same `ApiClientProtocol` interface, enabling consistent usage patterns.
 
 ### Session Utilities
 

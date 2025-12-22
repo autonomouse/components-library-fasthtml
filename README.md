@@ -259,4 +259,4 @@ pytest
 
 ## License
 
-Proprietary
+MIT

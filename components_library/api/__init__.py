@@ -1,8 +1,7 @@
 """API client library.
 
-Provides versioned API clients for the platform. Each API version
-has its own client implementation that follows the same protocol, enabling
-drop-in replacement when upgrading.
+Provides API clients that follow a common protocol, enabling
+consistent usage patterns across different implementations.
 
 Usage:
     # Import shared types
@@ -11,11 +10,11 @@ Usage:
     # Import protocol for type hints
     from components_library.api import ApiClientProtocol
 
-    # Import version-specific client
-    from components_library.api.v2 import ApiClient
+    # Import REST client
+    from components_library.api.rest import ApiClient
 
     # Create configured client (dependency injection)
-    client = ApiClient(base_url="https://api.example.com/v2")
+    client = ApiClient(base_url="https://api.example.com")
 
     # Use in services
     async def fetch_concepts(client: ApiClientProtocol, query: str):
@@ -24,9 +23,8 @@ Usage:
             return response.data
         raise Exception(response.error.message)
 
-Available Versions:
-    - v2: Current production API (components_library.api.v2)
-    - v3: Coming soon - will be drop-in replacement for v2
+Available Clients:
+    - rest: HTTP/REST client (components_library.api.rest)
 """
 
 from .protocol import ApiClientProtocol

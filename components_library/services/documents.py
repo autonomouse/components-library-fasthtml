@@ -84,10 +84,10 @@ class DocumentsService:
     and web articles.
 
     Example:
-        from components_library.api.v2 import ApiClient
+        from components_library.api.rest import ApiClient
         from components_library.services import DocumentsService
 
-        client = ApiClient(base_url="https://api.example.com/v2")
+        client = ApiClient(base_url="https://api.example.com")
         documents = DocumentsService(client)
 
         # Search for documents
