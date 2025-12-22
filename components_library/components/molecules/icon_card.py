@@ -4,7 +4,7 @@ from typing import Any
 
 from fasthtml.common import A, Div
 
-from ...components.atoms import card, flex, heading, icon, text
+from ...components.atoms import badge, card, flex, heading, icon, text
 from ...utils import merge_classes
 
 
@@ -14,6 +14,7 @@ def icon_card(
     icon_name: str,
     href: str | None = None,
     icon_color: str = "var(--theme-accent-primary, #00f0ff)",
+    badge_text: str | None = None,
     cls: str | None = None,
     **kwargs: Any,
 ) -> Any:
@@ -26,6 +27,7 @@ def icon_card(
         icon_name: Name of the icon (e.g. lucide icon name)
         href: Link URL
         icon_color: Color of the icon and its glow
+        badge_text: Optional badge text to display
         cls: Additional CSS classes
         **kwargs: Additional HTML attributes
     """
@@ -41,9 +43,17 @@ def icon_card(
         icon(name=icon_name, size="lg", stroke_width=1.5), style=icon_container_style
     )
 
+    # Badge (optional)
+    badge_component = (
+        badge(badge_text, color_palette="accent", size="sm", style="margin-bottom: 0.5rem;")
+        if badge_text
+        else ""
+    )
+
     # Content
     content = flex(
         icon_component,
+        badge_component,
         heading(
             title,
             level=3,
