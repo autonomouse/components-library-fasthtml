@@ -86,9 +86,11 @@ from ..molecules import (
     filter_panel,
     footer,
     form_modal,
+    hero_card,
     htmx_file_dropzone,
     htmx_pagination,
     htmx_tag_manager,
+    icon_card,
     item_details,
     job_status_banner,
     loading_screen,
@@ -790,6 +792,25 @@ def _molecules_showcase() -> Any:
                 ),
             ),
             _showcase_card(
+                "Hero Card",
+                grid(
+                    hero_card(
+                        title="Featured Location",
+                        subtitle="Central District",
+                        badge_text="5 Scenes",
+                        image_url="https://picsum.photos/seed/hero1/400/225",
+                        href="#",
+                    ),
+                    hero_card(
+                        title="Ancient Temple",
+                        subtitle="Sacred Grounds",
+                        badge_text="Story Hub",
+                    ),
+                    columns=2,
+                    gap="1rem",
+                ),
+            ),
+            _showcase_card(
                 "HTMX File Dropzone",
                 htmx_file_dropzone(
                     upload_url="/api/upload",
@@ -811,6 +832,25 @@ def _molecules_showcase() -> Any:
                     selected_tag_ids=["1"],
                     add_tag_url="/api/tags/add",
                     remove_tag_url="/api/tags/remove",
+                ),
+            ),
+            _showcase_card(
+                "Icon Card",
+                grid(
+                    icon_card(
+                        title="Characters",
+                        description="Manage your story's cast of characters",
+                        icon_name="users",
+                        href="#",
+                    ),
+                    icon_card(
+                        title="Locations",
+                        description="Explore and create world locations",
+                        icon_name="map-pin",
+                        icon_color="var(--theme-accent-secondary, #a855f7)",
+                    ),
+                    columns=2,
+                    gap="1rem",
                 ),
             ),
             _showcase_card(

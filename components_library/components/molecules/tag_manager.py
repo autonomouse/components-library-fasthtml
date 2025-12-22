@@ -180,6 +180,8 @@ def tag_manager(
                 label_for="new-tag-input",
             ),
             flex(
+                # JS Exception: Closing a <details> element requires JS to remove
+                # the 'open' attribute. Only the <summary> can toggle natively.
                 FtButton(
                     cancel_label,
                     type="button",

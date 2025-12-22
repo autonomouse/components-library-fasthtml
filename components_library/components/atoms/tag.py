@@ -38,18 +38,18 @@ def tag(
 
     elements = [text]
 
-    # Close button
-    # Uses HTMX hx-on:click or hx-delete for removal
+    # Close button - prefers HTMX server-side removal when URL is provided
     if removable:
         close_attrs: dict[str, str] = {"class": "tag-close"}
 
         if on_remove:
-            # Assume it's a URL for HTMX server-side removal
+            # HTMX server-side removal (preferred - no JS needed)
             close_attrs["hx-delete"] = on_remove
             close_attrs["hx-swap"] = "outerHTML"
             close_attrs["hx-target"] = "closest .tag"
         else:
-            # Default: client-side removal via HTMX event handling
+            # JS Exception: Client-side removal when no server endpoint provided.
+            # No pure CSS alternative exists for removing DOM elements.
             close_attrs["hx-on:click"] = "this.closest('.tag').remove()"
 
         elements.append(Span("×", **close_attrs))

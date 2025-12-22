@@ -1,136 +1,121 @@
-"""Discrete slider component for selecting between specific options."""
+"""Discrete slider component for selecting between specific options.
+
+Uses radio buttons styled as a segmented control - no JavaScript needed.
+"""
 
 from typing import Any
 
-from fasthtml.common import Div, Input, Label, Option, Select, Span, Style
+from fasthtml.common import Div, Input, Label, Style
 
 
 def discrete_slider(
     name: str,
     value: str,
     options: list[tuple[str, int]] | None = None,
-    dropdown_name: str | None = None,
-    dropdown_options: list[tuple[str, str]] | None = None,
-    dropdown_trigger_value: str | None = None,
+    dropdown_name: str | None = None,  # noqa: ARG001 - Deprecated, kept for API compat
+    dropdown_options: list[tuple[str, str]] | None = None,  # noqa: ARG001
+    dropdown_trigger_value: str | None = None,  # noqa: ARG001
     label: str = "Select Option",
 ) -> Any:
     """
-    A slider for selecting between discrete options.
-    Optionally shows a secondary dropdown when a specific value is selected.
+    A segmented control for selecting between discrete options.
+
+    Uses native radio buttons styled as a button group - no JavaScript required.
 
     Args:
-        name: Form input name for the slider value
+        name: Form input name for the selected value
         value: Current value (must match one of the option labels)
         options: List of (Label, NumericValue) tuples.
                  Default: [("Prequel", 0), ("Main", 1), ("Sequel", 2)]
-        dropdown_name: Name for the secondary dropdown input
-        dropdown_options: Options for the secondary dropdown
-        dropdown_trigger_value: The slider value (label) that triggers the dropdown display
+                 Note: NumericValue is used for ordering only; the label is submitted.
+        dropdown_name: DEPRECATED - Not supported in radio button implementation
+        dropdown_options: DEPRECATED - Not supported in radio button implementation
+        dropdown_trigger_value: DEPRECATED - Not supported in radio button implementation
         label: Label for the component
     """
 
     if options is None:
         options = [("Prequel", 0), ("Main", 1), ("Sequel", 2)]
 
-    # Create mapping
-    label_to_val = dict(options)
-    val_to_label = {val: label for label, val in options}
+    # Sort options by numeric value for consistent ordering
+    sorted_options = sorted(options, key=lambda x: x[1])
 
-    current_numeric = label_to_val.get(value, 1)
-
-    min_val = min(val_to_label.keys())
-    max_val = max(val_to_label.keys())
-
-    slider_id = f"slider-{name}"
-    dropdown_container_id = f"dropdown-container-{name}"
-    hidden_input_id = f"{name}-hidden"
+    # Generate unique ID for this instance
+    slider_id = f"segmented-{name}"
 
     styles = """
-    .discrete-slider-container {
+    .segmented-control-container {
         margin-top: 1rem;
         background: rgba(255, 255, 255, 0.03);
         padding: 1rem;
         border-radius: 0.5rem;
     }
-    .slider-labels {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 0.5rem;
-        color: var(--pico-muted-color);
-        font-size: 0.8rem;
+    .segmented-control-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
     }
-    .slider-controls {
+    .segmented-control {
         display: flex;
-        align-items: center;
-        gap: 1rem;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        border: 1px solid var(--theme-border-subtle, rgba(255,255,255,0.1));
     }
-    .slider-wrapper {
+    .segmented-control input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+    }
+    .segmented-control label {
         flex: 1;
+        padding: 0.5rem 1rem;
+        text-align: center;
+        cursor: pointer;
+        background: var(--theme-surface-1, rgba(0,0,0,0.2));
+        color: var(--theme-text-secondary, #888);
+        border-right: 1px solid var(--theme-border-subtle, rgba(255,255,255,0.1));
+        transition: background 0.15s, color 0.15s;
+        margin: 0;
+        font-size: 0.9rem;
+    }
+    .segmented-control label:last-of-type {
+        border-right: none;
+    }
+    .segmented-control label:hover {
+        background: var(--theme-surface-2, rgba(255,255,255,0.05));
+    }
+    .segmented-control input[type="radio"]:checked + label {
+        background: var(--theme-accent-primary, #6366f1);
+        color: white;
+    }
+    .segmented-control input[type="radio"]:focus + label {
+        outline: 2px solid var(--theme-accent-primary, #6366f1);
+        outline-offset: -2px;
     }
     """
 
-    # Build Map for JS
-    # We need a JS object string like {0: 'Prequel', 1: 'Main', ...}
-    js_map = "{" + ", ".join([f"{val}: '{label}'" for label, val in options]) + "}"
+    # Build radio buttons with labels
+    radio_elements = []
+    for opt_label, opt_value in sorted_options:
+        radio_id = f"{slider_id}-{opt_value}"
+        is_checked = opt_label == value
 
-    # Trigger logic
-    trigger_condition = "false"
-    if dropdown_trigger_value and dropdown_trigger_value in label_to_val:
-        trigger_val = label_to_val[dropdown_trigger_value]
-        trigger_condition = f"val == '{trigger_val}'"
-
-    update_script = (
-        f"const val = this.value; "
-        f"const map = {js_map}; "
-        f"document.getElementById('{hidden_input_id}').value = map[val]; "
-        f"const container = document.getElementById('{dropdown_container_id}'); "
-        f"if (container) container.style.display = ({trigger_condition}) ? 'block' : 'none';"
-    )
-
-    # Initial Display
-    initial_display = "none"
-    if dropdown_trigger_value and value == dropdown_trigger_value:
-        initial_display = "block"
-
-    dropdown_elem = ""
-    if dropdown_name:
-        dropdown_elem = Div(
-            Select(
-                *(
-                    [Option(opt[0], value=opt[1]) for opt in dropdown_options]
-                    if dropdown_options
-                    else [Option("Select...", value="")]
-                ),
-                name=dropdown_name,
-            ),
-            id=dropdown_container_id,
-            style=f"display: {initial_display}; min-width: 150px;",
+        # Radio input (hidden but functional)
+        radio_elements.append(
+            Input(
+                type="radio",
+                name=name,
+                value=opt_label,  # Submit the label, not the numeric value
+                id=radio_id,
+                checked=is_checked if is_checked else None,
+            )
         )
+        # Visible label styled as button segment
+        radio_elements.append(Label(opt_label, fr=radio_id))
 
     return Div(
-        Label(label),
-        Div(
-            Div(
-                Input(
-                    type="range",
-                    min=str(min_val),
-                    max=str(max_val),
-                    step="1",
-                    value=str(current_numeric),
-                    id=slider_id,
-                    **{"hx-on:input": update_script},
-                ),
-                Div(
-                    *[Span(opt[0]) for opt in options],
-                    cls="slider-labels",
-                ),
-                # Hidden input to store the actual string value expected by backend
-                Input(type="hidden", name=name, id=hidden_input_id, value=value),
-                cls="slider-wrapper",
-            ),
-            dropdown_elem,
-            cls="slider-controls",
-        ),
+        Label(label, cls="segmented-control-label"),
+        Div(*radio_elements, cls="segmented-control"),
         Style(styles),
-        cls="discrete-slider-container",
+        cls="segmented-control-container",
     )

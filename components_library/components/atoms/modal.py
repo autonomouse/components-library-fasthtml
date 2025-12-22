@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from fasthtml.common import Button, Dialog, Div, Style
+from fasthtml.common import Button, Dialog, Div, Form, Style
 
 from ...design_system.tokens import BorderRadius, Colors, Shadows, Spacing
 from ...utils import generate_style_string, merge_classes
@@ -81,14 +81,14 @@ def modal(
         ...     modal_id="confirm-delete",
         ...     title="Confirm Delete",
         ...     footer=hstack(
-        ...         button("Cancel", variant="outline",
-        ...                **{"hx-on:click": "this.closest('dialog').close()"}),
+        ...         Form(button("Cancel", variant="outline"), method="dialog"),
         ...         button("Delete", color_palette="red"),
         ...         gap=2
         ...     )
         ... )
 
     Opening the modal (from a button):
+        JS Exception: showModal() is the native HTML5 dialog API - no CSS/HTMX alternative exists.
         >>> button("Open Modal",
         ...        **{"hx-on:click": "document.getElementById('my-modal').showModal()"})
     """
@@ -126,14 +126,14 @@ def modal(
             margin_left="auto",
         )
 
+        # Use <form method="dialog"> for native dialog close (no JavaScript needed)
         modal_content.append(
             Div(
                 title,
-                Button(
-                    "×",
-                    type="button",
-                    style=close_btn_style,
-                    **{"hx-on:click": "this.closest('dialog').close()"},
+                Form(
+                    Button("×", type="submit", style=close_btn_style),
+                    method="dialog",
+                    style="margin: 0; padding: 0;",
                 ),
                 cls="modal-header",
                 style=header_style,

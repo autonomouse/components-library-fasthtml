@@ -65,7 +65,10 @@ def alert(
     elements.append(Div(*content_elements, cls="alert-content"))
 
     # Close button (if closeable)
-    # Uses HTMX hx-on:click for event handling (part of HTMX, not raw JS)
+    # JS Exception: element.remove() is used for client-side dismissal without server
+    # round-trip. HTMX could use hx-delete + hx-swap="delete" with a server endpoint,
+    # but for simple UI dismissal that doesn't need persistence, this is overkill.
+    # No pure CSS alternative exists for removing DOM elements.
     if closeable:
         elements.append(
             Span(

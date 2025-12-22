@@ -20,8 +20,8 @@ def entity_detail_layout(
     form_method: str = "post",
     error_message: str | None = None,
     is_multipart: bool = False,
-    app_name: str = "StoryVibe",
-    app_version: str = "0.1.0",
+    app_name: str | None = None,
+    app_version: str | None = None,
 ) -> Any:
     """
     Standard layout for "Detail" pages (View/Create/Edit entity).
@@ -64,7 +64,7 @@ def entity_detail_layout(
         style="max-width: 1400px; margin: 0 auto; width: 100%;",
     )
 
-    full_page = vstack(navigation(user, brand_name=app_name), content, gap=0)
+    full_page = vstack(navigation(user, brand_name=app_name or "App"), content, gap=0)
 
     return base_page(
         full_page,

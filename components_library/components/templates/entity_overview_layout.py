@@ -28,8 +28,8 @@ def entity_overview_layout(
     empty_state_cta_text: str | None = None,
     empty_state_cta_href: str | None = None,
     is_empty: bool = False,
-    app_name: str = "StoryVibe",
-    app_version: str = "0.1.0",
+    app_name: str | None = None,
+    app_version: str | None = None,
     extra_controls: Any | None = None,
 ) -> Any:
     """
@@ -119,7 +119,7 @@ def entity_overview_layout(
         )
     )
 
-    full_page = vstack(navigation(user, brand_name=app_name), main_content, gap=0)
+    full_page = vstack(navigation(user, brand_name=app_name or "App"), main_content, gap=0)
 
     return base_page(
         full_page,

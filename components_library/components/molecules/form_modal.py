@@ -114,7 +114,10 @@ def form_modal(
     if form_swap:
         form_attrs["hx_swap"] = form_swap
 
-    # Close modal on successful submission
+    # JS Exception: Close modal on successful HTMX submission.
+    # This requires JS because we need to conditionally close only on success (not on
+    # validation errors). HTMX events provide success/failure info but closing a dialog
+    # still requires the native dialog.close() API. No pure HTMX/CSS alternative exists.
     form_attrs["hx-on:htmx:after-request"] = (
         "if(event.detail.successful) this.closest('dialog').close()"
     )
@@ -128,6 +131,7 @@ def form_modal(
     )
 
     # Footer with action buttons
+    # Cancel button uses <form method="dialog"> for native dialog close (no JS needed)
     footer = hstack(
         button(
             submit_label,
@@ -136,10 +140,10 @@ def form_modal(
             variant="solid",
             color_palette=submit_color,
         ),
-        button(
-            cancel_label,
-            variant="outline",
-            **{"hx-on:click": "this.closest('dialog').close()"},  # type: ignore[arg-type]
+        Form(
+            button(cancel_label, variant="outline", type="submit"),
+            method="dialog",
+            style="margin: 0; padding: 0; display: contents;",
         ),
         gap=3,
     )
