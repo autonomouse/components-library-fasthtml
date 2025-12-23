@@ -27,6 +27,10 @@ def relationship_board(
     item_icon: str = "user",
     select_placeholder: str = "Select item...",
     dom_id: str | None = None,
+    hidden_inputs: dict[str, str] | None = None,
+    verb_field: str = "relationship_verb",
+    detail_field: str = "relationship_detail",
+    update_url_suffix: str = "/relationship",
 ) -> Any:
     """
     A Kanban-style board for managing entity relationships grouped by verb.
@@ -49,6 +53,10 @@ def relationship_board(
         item_icon: Icon name for items (default "user" shows avatar).
         select_placeholder: Placeholder text for the add dropdown.
         dom_id: Unique DOM ID for HTMX targeting (required for add/delete to work).
+        hidden_inputs: Optional dictionary of hidden fields to include in the add form.
+        verb_field: Name of the form field for the relationship verb (default: "relationship_verb").
+        detail_field: Name of the form field for the relationship detail (default: "relationship_detail").
+        update_url_suffix: Suffix to append to the delete URL to create the update URL (default: "/relationship").
 
     Returns:
         A flex container with Kanban-style columns grouped by relationship verb.
@@ -173,20 +181,24 @@ def relationship_board(
                 # Add Form for this column
                 Div(
                     vstack(
+                        # Inject Hidden Fields
+                        *[
+                            input(type="hidden", name=k, value=v)
+                            for k, v in (hidden_inputs or {}).items()
+                        ],
                         Select(
                             Option(select_placeholder, value="", disabled=True, selected=True),
                             *[Option(opt_name, value=opt_id) for opt_id, opt_name in options],
                             name="target_id",
                             style="width: 100%; background: rgba(0,0,0,0.2); border: 1px solid var(--theme-border-subtle); font-size: 0.8rem; padding: 0.25rem; color: var(--theme-text-primary);",
-                            # Note: No 'required' - these use HTMX, not form submission
                         ),
                         input(
                             type="hidden",
-                            name="relationship_verb",
+                            name=verb_field,
                             value="" if is_unspecified else verb_key,
                         ),
                         input(
-                            name="relationship_detail",
+                            name=detail_field,
                             placeholder="Details...",
                             style="width: 100%; background: rgba(0,0,0,0.2); border: 1px solid var(--theme-border-subtle); font-size: 0.8rem; padding: 0.25rem; color: var(--theme-text-primary);",
                         ),
@@ -232,17 +244,20 @@ def relationship_board(
                 ),
                 Div(
                     vstack(
+                        # Inject Hidden Fields
+                        *[
+                            input(type="hidden", name=k, value=v)
+                            for k, v in (hidden_inputs or {}).items()
+                        ],
                         input(
-                            name="relationship_verb",
+                            name=verb_field,
                             placeholder="New Verb (e.g. Exploits)",
-                            # Note: No 'required' - these use HTMX, not form submission
                             style="background: rgba(0,0,0,0.2); border: 1px solid var(--theme-border-subtle); color: var(--theme-text-primary);",
                         ),
                         Select(
                             Option(select_placeholder, value="", disabled=True, selected=True),
                             *[Option(opt_name, value=opt_id) for opt_id, opt_name in options],
                             name="target_id",
-                            # Note: No 'required' - these use HTMX, not form submission
                             style="background: rgba(0,0,0,0.2); border: 1px solid var(--theme-border-subtle); color: var(--theme-text-primary);",
                         ),
                         button(
@@ -286,37 +301,43 @@ def relationship_board(
 
     # SortableJS Script for drag-and-drop support
     # JS Exception: Necessary for drag-and-drop functionality (no pure CSS/HTMX alternative available)
-    sortable_script = """
-    (function() {
-        if (typeof Sortable === 'undefined') {
+    sortable_script = f"""
+    (function() {{
+        var CONFIG = {{
+            verbField: "{verb_field}",
+            detailField: "{detail_field}",
+            updateSuffix: "{update_url_suffix}"
+        }};
+
+        if (typeof Sortable === 'undefined') {{
             var script = document.createElement('script');
             script.src = 'https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js';
             script.onload = initAllBoards;
             document.head.appendChild(script);
-        } else {
+        }} else {{
             initAllBoards();
-        }
+        }}
 
-        function initAllBoards() {
+        function initAllBoards() {{
             // Init on load
             initSortables(document.body);
             // Init on HTMX swap
-            document.body.addEventListener('htmx:afterSwap', function(evt) {
+            document.body.addEventListener('htmx:afterSwap', function(evt) {{
                 initSortables(evt.detail.elt);
-            });
-        }
+            }});
+        }}
 
-        function initSortables(root) {
+        function initSortables(root) {{
             var columns = root.querySelectorAll('.relationship-column');
-            columns.forEach(function(column) {
+            columns.forEach(function(column) {{
                 if (column._sortable) return;
 
-                column._sortable = new Sortable(column, {
+                column._sortable = new Sortable(column, {{
                     group: 'relationships', // Allow dragging between columns
                     animation: 150,
                     ghostClass: 'opacity-50',
 
-                    onEnd: function(evt) {
+                    onEnd: function(evt) {{
                         var item = evt.item;
                         var newVerb = evt.to.dataset.verb;
 
@@ -326,30 +347,31 @@ def relationship_board(
                         var deleteUrl = item.dataset.deleteUrl;
                         var detail = item.dataset.detail || "";
 
-                        if (deleteUrl) {
-                            // Construct update URL from delete URL:
-                            // .../entity_id?link_id=... -> .../entity_id/relationship?link_id=...
+                        if (deleteUrl) {{
+                            // Construct update URL from delete URL
                             var splitUrl = deleteUrl.split('?');
                             var baseUrl = splitUrl[0];
                             var queryParams = splitUrl[1] || '';
 
-                            var updateUrl = baseUrl + '/relationship';
+                            var updateUrl = baseUrl + CONFIG.updateSuffix;
                             if (queryParams) updateUrl += '?' + queryParams;
 
+                            // Prepared values
+                            var vals = {{}};
+                            vals[CONFIG.verbField] = newVerb;
+                            vals[CONFIG.detailField] = detail;
+
                             // Send HTMX request
-                            htmx.ajax('POST', updateUrl, {
-                                values: {
-                                    relationship_verb: newVerb,
-                                    relationship_detail: detail
-                                },
+                            htmx.ajax('POST', updateUrl, {{
+                                values: vals,
                                 swap: 'none'
-                            });
-                        }
-                    }
-                });
-            });
-        }
-    })();
+                            }});
+                        }}
+                    }}
+                }});
+            }});
+        }}
+    }})();
     """
 
     from fasthtml.common import Script
