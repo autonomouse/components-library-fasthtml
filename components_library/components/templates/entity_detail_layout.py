@@ -15,7 +15,7 @@ def entity_detail_layout(
     user: Any,
     title: str,
     breadcrumb_items: list[BreadcrumbItem],
-    form_action: str,
+    form_action: str | None,
     children: Any,
     form_method: str = "post",
     error_message: str | None = None,
@@ -30,7 +30,9 @@ def entity_detail_layout(
     - Navigation
     - Breadcrumbs
     - Error Message display
-    - Form wrapper
+    - Form wrapper (only if form_action is provided)
+
+    If form_action is None, children should contain its own form element.
     """
 
     # Error Message
@@ -44,21 +46,25 @@ def entity_detail_layout(
         else ""
     )
 
-    # Main Form
-    main_form = Form(
-        children,
-        method=form_method,
-        action=form_action,
-        style="width: 100%;",
-        enctype="multipart/form-data" if is_multipart else None,
-    )
+    # Main Form - only wrap in Form if form_action is provided
+    # If form_action is None, assume children contains its own form
+    if form_action:
+        main_content = Form(
+            children,
+            method=form_method,
+            action=form_action,
+            style="width: 100%;",
+            enctype="multipart/form-data" if is_multipart else None,
+        )
+    else:
+        main_content = children
 
     # Page Assembly
     content = page_container(
         vstack(
             breadcrumbs(breadcrumb_items),
             error_area,
-            main_form,
+            main_content,
             gap="1.5rem",
         ),
         style="max-width: 1400px; margin: 0 auto; width: 100%;",

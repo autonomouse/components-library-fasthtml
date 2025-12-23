@@ -16,7 +16,7 @@ def input(
     name: str,
     value: str | None = None,
     placeholder: str | None = None,
-    type: Literal["text", "email", "password", "number", "tel", "url", "search"] = "text",
+    type: Literal["text", "email", "password", "number", "tel", "url", "search", "hidden"] = "text",
     size: Literal["sm", "md", "lg"] = "md",
     disabled: bool = False,
     readonly: bool = False,

@@ -3,6 +3,8 @@
 from .action_card import action_card
 from .auth_form import auth_form
 from .breadcrumbs import BreadcrumbItem, breadcrumbs
+from .carousel import carousel
+from .child_entries_section import ChildEntry, child_entries_section
 from .completion_circle import completion_circle
 from .dashboard_nav_card import dashboard_nav_card
 from .dashboard_stat_card import dashboard_stat_card
@@ -10,6 +12,7 @@ from .date_range_inputs import date_range_inputs
 from .detail_row import detail_row
 from .details_section import details_section
 from .discrete_slider import discrete_slider
+from .editable_heading import editable_heading
 from .enhanced_search_bar import enhanced_search_bar
 from .entity_card import entity_card
 from .error_fallback import error_fallback
@@ -31,6 +34,7 @@ from .loading_screen import loading_screen
 from .nav_card import nav_card
 from .overflow_tooltip import overflow_tooltip
 from .pagination import htmx_pagination
+from .removable_entity_row import removable_entity_row
 from .result_card import result_card
 from .scene_card import scene_card
 from .search_bar import search_bar
@@ -49,6 +53,7 @@ __all__ = [
     # Data classes
     "BackgroundJob",
     "BreadcrumbItem",
+    "ChildEntry",
     "FilterGroup",
     "TagItem",
     "Token",
@@ -57,6 +62,8 @@ __all__ = [
     "action_card",
     "auth_form",
     "breadcrumbs",
+    "carousel",
+    "child_entries_section",
     "completion_circle",
     "dashboard_nav_card",
     "dashboard_stat_card",
@@ -64,6 +71,7 @@ __all__ = [
     "detail_row",
     "details_section",
     "discrete_slider",
+    "editable_heading",
     "enhanced_search_bar",
     "entity_card",
     "error_fallback",
@@ -85,6 +93,7 @@ __all__ = [
     "loading_screen",
     "nav_card",
     "overflow_tooltip",
+    "removable_entity_row",
     "result_card",
     "scene_card",
     "search_bar",

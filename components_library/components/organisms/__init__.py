@@ -17,6 +17,7 @@ from .navigation import navigation
 from .notifications import NotificationItem, NotificationTag, notifications
 from .page_header import page_header
 from .profile import profile_card
+from .relationship_board import relationship_board
 from .timeline_view import timeline_view
 
 __all__ = [
@@ -39,6 +40,7 @@ __all__ = [
     "notifications",
     "page_header",
     "profile_card",
+    "relationship_board",
     "selected_tokens_partial",
     "timeline_view",
 ]

@@ -76,6 +76,7 @@ from ..molecules import (
     detail_row,
     details_section,
     discrete_slider,
+    editable_heading,
     enhanced_search_bar,
     entity_card,
     error_fallback,
@@ -96,6 +97,7 @@ from ..molecules import (
     loading_screen,
     nav_card,
     overflow_tooltip,
+    removable_entity_row,
     result_card,
     scene_card,
     search_bar,
@@ -123,6 +125,7 @@ from ..organisms import (
     notifications,
     page_header,
     profile_card,
+    relationship_board,
     timeline_view,
 )
 from .auth_page_layout import auth_page_layout
@@ -668,6 +671,16 @@ def _molecules_showcase() -> Any:
                 ),
             ),
             _showcase_card(
+                "Editable Heading",
+                editable_heading(
+                    value="Click to Edit Me",
+                    name="demo-heading",
+                    post_url="/post/echo",
+                    placeholder="Enter title...",
+                    level=2,
+                ),
+            ),
+            _showcase_card(
                 "Enhanced Search Bar",
                 enhanced_search_bar(
                     placeholder="Enhanced search with icons...",
@@ -918,6 +931,23 @@ def _molecules_showcase() -> Any:
                 overflow_tooltip(
                     "This is a very long text that will be truncated and shown in a tooltip when hovered over by the user",
                     max_width="200px",
+                ),
+            ),
+            _showcase_card(
+                "Removable Entity Row",
+                vstack(
+                    removable_entity_row(
+                        name="John Doe",
+                        remove_url="/api/remove/1",
+                        remove_target="#row-1",
+                        image_url="https://ui-avatars.com/api/?name=John+Doe",
+                    ),
+                    removable_entity_row(
+                        name="Jane Smith",
+                        remove_url="/api/remove/2",
+                        remove_target="#row-2",
+                    ),
+                    gap=2,
                 ),
             ),
             _showcase_card(
@@ -1279,6 +1309,28 @@ def _organisms_showcase() -> Any:
                         accent_color="#ff6b6b",
                     ),
                     min_height="300px",
+                ),
+            ),
+            _showcase_card(
+                "Relationship Board",
+                text(
+                    "Kanban-style board for managing entity relationships grouped by verb. "
+                    "Uses HTMX for dynamic updates without nested forms.",
+                    variant="caption",
+                    style="margin-bottom: 1rem;",
+                ),
+                relationship_board(
+                    items=[
+                        ("loc-1", "Dark Castle", "Born in", "Year 1023", None, None),
+                        ("loc-2", "Crystal Cave", "Born in", None, None, None),
+                        ("loc-3", "Mountain Peak", "Visits", "Frequently", None, None),
+                        ("char-1", "The Mentor", "Knows secret", "Ancient prophecy", None, None),
+                    ],
+                    add_url=None,
+                    options=[("loc-4", "Forest"), ("loc-5", "Village")],
+                    is_editing=False,
+                    item_icon="map-pin",
+                    dom_id="showcase-relationship-board",
                 ),
             ),
             gap=4,
