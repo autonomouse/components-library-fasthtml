@@ -28,6 +28,7 @@ from .hero_card import hero_card
 from .htmx_file_dropzone import htmx_file_dropzone
 from .htmx_tag_manager import htmx_tag_manager
 from .icon_card import icon_card
+from .image_uploader import image_uploader
 from .item_details import item_details
 from .job_status_banner import BackgroundJob, job_status_banner
 from .loading_screen import loading_screen
@@ -88,6 +89,7 @@ __all__ = [
     "htmx_pagination",
     "htmx_tag_manager",
     "icon_card",
+    "image_uploader",
     "item_details",
     "job_status_banner",
     "loading_screen",
