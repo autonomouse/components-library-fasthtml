@@ -30,6 +30,8 @@ def avatar(
     image_url: str | None = None,
     size: int = 40,
     href: str | None = None,
+    focal_point_x: int = 50,
+    focal_point_y: int = 50,
     **kwargs: Any,
 ) -> Div:
     """
@@ -41,6 +43,7 @@ def avatar(
     - Fallback to initials if no image/Gravatar
     - Configurable size and styling
     - Optional link wrapper
+    - Focal point support for custom cropping
 
     Args:
         email: User email for Gravatar lookup
@@ -48,6 +51,8 @@ def avatar(
         image_url: Direct URL to profile image
         size: Avatar size in pixels (default: 40)
         href: Optional link URL for the avatar
+        focal_point_x: X coordinate for background position (0-100)
+        focal_point_y: Y coordinate for background position (0-100)
         **kwargs: Additional attributes for the avatar container
 
     Returns:
@@ -122,7 +127,7 @@ def avatar(
                 height: 100%;
                 background-image: url('{final_image_url}');
                 background-size: cover;
-                background-position: center;
+                background-position: {focal_point_x}% {focal_point_y}%;
                 background-repeat: no-repeat;
                 position: relative;
             """,

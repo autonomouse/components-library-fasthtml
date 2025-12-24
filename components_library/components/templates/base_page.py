@@ -86,7 +86,11 @@ def base_page(
 
     return Html(
         Head(*head_elements),
-        Body(content),
+        Body(
+            content,
+            # Modal container for HTMX modals
+            NotStr('<div id="modal-container"></div>'),
+        ),
         lang="en",
         **kwargs,
     )

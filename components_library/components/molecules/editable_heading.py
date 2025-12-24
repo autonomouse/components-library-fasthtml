@@ -74,8 +74,6 @@ def editable_heading(
         hx_trigger="blur changed, keydown[key=='Enter']",
         hx_target=target,
         hx_swap="outerHTML",
-        onfocus="this.style.borderBottomColor='#a855f7'",
-        onblur="this.style.borderBottomColor='transparent'",
         cls=merge_classes("editable-heading", cls),
         **kwargs,
     )

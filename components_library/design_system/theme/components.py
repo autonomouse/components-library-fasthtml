@@ -318,6 +318,11 @@ def _input_component_styles() -> str:
             min-height: 80px;
         }}
 
+        /* Editable Heading */
+        .editable-heading:focus {{
+            border-bottom-color: #a855f7 !important;
+        }}
+
         /* Select */
         .select {{
             appearance: none;

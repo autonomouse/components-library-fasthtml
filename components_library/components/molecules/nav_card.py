@@ -9,23 +9,29 @@ from ...components.atoms.text import text
 from ...utils import generate_style_string
 
 
-def _card_stack(images: list[str | None], names: list[str] | None = None) -> Div:
+def _card_stack(
+    images: list[str | None],
+    names: list[str] | None = None,
+    focal_points: list[tuple[int, int]] | None = None,
+) -> Div:
     """
     Create a featured card with smaller stacked cards beside it.
 
     Args:
         images: List of image URLs
         names: Optional list of names for initials fallback
-
-    Returns:
-        Div containing card layout
+        focal_points: Optional list of (x, y) tuples for background position
     """
     if names is None:
         names = []
+    if focal_points is None:
+        focal_points = []
 
-    # Pad names to match images length
+    # Pad lists to match images length or at least 4 for safe indexing if images exist
     padded_names = (names[:4] if names else []) + [None] * 4
-    items = list(zip(images[:4], padded_names[:4], strict=False))
+    padded_focal = (focal_points[:4] if focal_points else []) + [(50, 50)] * 4
+
+    items = list(zip(images[:4], padded_names[:4], padded_focal[:4], strict=False))
 
     if not items:
         return Div()
@@ -37,13 +43,19 @@ def _card_stack(images: list[str | None], names: list[str] | None = None) -> Div
         return (parts[0][0] + (parts[-1][0] if len(parts) > 1 else "")).upper()
 
     def make_card(
-        img_url: str | None, name: str | None, w: int, h: int, extra_style: str = ""
+        img_url: str | None,
+        name: str | None,
+        w: int,
+        h: int,
+        extra_style: str = "",
+        focal: tuple[int, int] = (50, 50),
     ) -> Div:
         initials = get_initials(name)
         base = f"width: {w}px; height: {h}px; border-radius: 8px; border: 2px solid rgba(59, 130, 246, 0.5); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); {extra_style}"
         if img_url:
+            fx, fy = focal
             return Div(
-                style=f"{base} background-image: url('{img_url}'); background-size: cover; background-position: center;"
+                style=f"{base} background-image: url('{img_url}'); background-size: cover; background-position: {fx}% {fy}%;"
             )
         return Div(
             initials,
@@ -52,14 +64,16 @@ def _card_stack(images: list[str | None], names: list[str] | None = None) -> Div
 
     # Featured card (first item) - larger
     featured_w, featured_h = 70, 90
-    featured = make_card(items[0][0], items[0][1], featured_w, featured_h, "flex-shrink: 0;")
+    featured = make_card(
+        items[0][0], items[0][1], featured_w, featured_h, "flex-shrink: 0;", items[0][2]
+    )
 
     # Smaller stacked cards on the right
     small_w, small_h = 45, 60
     stack_cards = []
     remaining = items[1:4]  # Up to 3 more cards
 
-    for i, (img_url, name) in enumerate(remaining):
+    for i, (img_url, name, focal) in enumerate(remaining):
         rotation = (i - 1) * 6  # -6, 0, 6 degrees
         offset_y = 8 + i * 2
         stack_cards.append(
@@ -69,6 +83,7 @@ def _card_stack(images: list[str | None], names: list[str] | None = None) -> Div
                 small_w,
                 small_h,
                 f"position: absolute; left: {i * 18}px; top: {offset_y}px; transform: rotate({rotation}deg); z-index: {i + 1};",
+                focal,
             )
         )
 
@@ -99,6 +114,7 @@ def nav_card(
     href: str,
     preview_images: list[str | None] | None = None,
     preview_names: list[str] | None = None,
+    preview_focal_points: list[tuple[int, int]] | None = None,
     **kwargs: Any,
 ) -> Any:
     """
@@ -110,6 +126,7 @@ def nav_card(
         href: Link URL
         preview_images: Optional list of image URLs to show as stacked avatars
         preview_names: Optional list of names for initials fallback
+        preview_focal_points: Optional list of (x, y) tuples for background position
         **kwargs: Additional HTML attributes
 
     Returns:
@@ -138,10 +155,11 @@ def nav_card(
     if preview_images or preview_names:
         images = preview_images or []
         names = preview_names or []
+        focal_points = preview_focal_points or []
         # Ensure we have at least placeholder data
         if not images and names:
             images = [None] * len(names)
-        content.append(_card_stack(images, names))
+        content.append(_card_stack(images, names, focal_points))
 
     content.extend(
         [

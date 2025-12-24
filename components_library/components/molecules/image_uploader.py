@@ -5,9 +5,9 @@ from __future__ import annotations
 from typing import Any
 from uuid import uuid4
 
-from fasthtml.common import Div, Img, Input, Label
+from fasthtml.common import Div, Img, Input
 
-from ..atoms import text, vstack
+from ..atoms import button, flex, text, vstack
 
 
 def image_uploader(
@@ -22,6 +22,9 @@ def image_uploader(
     disabled: bool = False,
     field_name: str = "image_url",
     form_id: str | None = None,
+    focal_point_x: int = 50,
+    focal_point_y: int = 25,
+    image_id: str | None = None,
     **kwargs: Any,
 ) -> Any:
     """
@@ -33,6 +36,7 @@ def image_uploader(
     - Client-side validation
     - HTMX-powered upload
     - Automatic preview update
+    - Focal point support for avatars
 
     Args:
         entity_type: Type of entity (character, location, etc.)
@@ -46,6 +50,9 @@ def image_uploader(
         disabled: Whether the uploader is disabled
         field_name: Name of the input field to update (for form submission)
         form_id: ID of the form the input belongs to
+        focal_point_x: Focal point X coordinate (0-100, for avatars)
+        focal_point_y: Focal point Y coordinate (0-100, for avatars)
+        image_id: ID of the image record (for focal point updates)
         **kwargs: Additional HTML attributes
 
     Returns:
@@ -73,19 +80,35 @@ def image_uploader(
         "fill='%239ca3af'%3ENo Image%3C/text%3E%3C/svg%3E"
     )
 
-    # Preview image
-    preview_img = Img(
-        src=current_image_url or placeholder_url,
-        alt="Preview",
-        id=preview_id,
-        style="""
-            max-width: 200px;
-            max-height: 200px;
-            object-fit: cover;
-            border-radius: 0.5rem;
-            border: 2px solid var(--color-border-muted);
-        """,
-    )
+    # For avatars, use background-image with focal point support
+    if image_type == "avatar" and current_image_url:
+        preview_element = Div(
+            id=preview_id,
+            style=f"""
+                width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                background-image: url('{current_image_url}');
+                background-size: cover;
+                background-position: {focal_point_x}% {focal_point_y}%;
+                border: 2px solid var(--color-border-muted);
+            """,
+            **{"data-image-id": image_id} if image_id else {},
+        )
+    else:
+        # For other image types or no image, use regular img tag
+        preview_element = Img(
+            src=current_image_url or placeholder_url,
+            alt="Preview",
+            id=preview_id,
+            style="""
+                max-width: 200px;
+                max-height: 200px;
+                object-fit: cover;
+                border-radius: 0.5rem;
+                border: 2px solid var(--color-border-muted);
+            """,
+        )
 
     # Hidden input for current value (preserved on initial load)
     current_value_input = Input(
@@ -125,19 +148,61 @@ def image_uploader(
         },
     )
 
-    # Upload button (styled as label)
-    upload_button = Label(
-        text(
-            "Click to upload",
-            style="""
-                color: var(--color-primary);
-                cursor: pointer;
-                text-decoration: underline;
-                font-size: 0.875rem;
-            """,
-        ),
-        fr=upload_id,
-        style="cursor: pointer;" if not disabled else "cursor: not-allowed; opacity: 0.5;",
+    # Action Buttons Row
+    # 1. Upload Button
+    upload_btn = button(
+        "Upload Image",
+        variant="outline",
+        size="sm",
+        **{"onclick": f"document.getElementById('{upload_id}').click()"},
+        disabled=disabled,
+    )
+
+    # 2. Adjust Focus Point (Avatar only)
+    adjust_btn = None
+    if image_type == "avatar":
+        adjust_btn = button(
+            "Adjust Focus Point",
+            variant="ghost",
+            size="sm",
+            disabled=not (current_image_url and image_id),
+            style="opacity: 0.5; cursor: not-allowed;"
+            if not (current_image_url and image_id)
+            else "",
+            **{
+                "hx-get": f"/api/images/{image_id}/focal-point-modal",
+                "hx-target": "#modal-container",
+                "hx-swap": "innerHTML",
+            }
+            if current_image_url and image_id
+            else {},
+        )
+
+    # 3. View Full Image
+    view_btn = button(
+        "View Full Image",
+        variant="ghost",
+        size="sm",
+        disabled=not (current_image_url and image_id),
+        style="opacity: 0.5; cursor: not-allowed;" if not (current_image_url and image_id) else "",
+        **{
+            "hx-get": f"/api/images/{image_id}/view-modal",
+            "hx-target": "#modal-container",
+            "hx-swap": "innerHTML",
+        }
+        if current_image_url and image_id
+        else {},
+    )
+
+    # Combine into row
+    button_row = flex(
+        upload_btn,
+        adjust_btn,
+        view_btn,
+        gap="0.5rem",
+        align="center",
+        justify="start",
+        style="margin-top: 0.5rem; flex-wrap: wrap;",
     )
 
     # Info text
@@ -158,12 +223,12 @@ def image_uploader(
         vstack(
             text(label, style="font-weight: 600; margin-bottom: 0.5rem;"),
             Div(
-                preview_img,
+                preview_element,
                 current_value_input,
                 id=container_id,
                 style="margin-bottom: 0.5rem;",
             ),
-            upload_button,
+            button_row,
             info_text,
             loading_indicator,
             gap=1,

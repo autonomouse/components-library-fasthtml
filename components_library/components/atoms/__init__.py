@@ -78,6 +78,7 @@ from .tag import tag
 from .text import text
 from .textarea import textarea
 from .tooltip import tooltip
+from .voice_waveform import voice_waveform
 
 __all__ = [
     "ICON_ACTIVITY",
@@ -169,5 +170,6 @@ __all__ = [
     "text",
     "textarea",
     "tooltip",
+    "voice_waveform",
     "vstack",
 ]

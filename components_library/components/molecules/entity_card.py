@@ -19,6 +19,8 @@ def entity_card(
     href: str | None = None,
     centered: bool = False,
     cls: str | None = None,
+    focal_point_x: int | None = None,
+    focal_point_y: int | None = None,
     **kwargs: Any,
 ) -> Any:
     """
@@ -34,6 +36,8 @@ def entity_card(
         href: Link URL (optional). If provided, card becomes an anchor.
         centered: Whether to center the content (default: False)
         cls: Additional CSS classes
+        focal_point_x: Avatar focal point X (0-100)
+        focal_point_y: Avatar focal point Y (0-100)
         **kwargs: Additional HTML attributes
     """
     from ...components.atoms import card
@@ -49,6 +53,8 @@ def entity_card(
         image_url=image_url,
         size=avatar_size,
         style=avatar_style,
+        focal_point_x=focal_point_x if focal_point_x is not None else 50,
+        focal_point_y=focal_point_y if focal_point_y is not None else 50,
     )
 
     # Content elements

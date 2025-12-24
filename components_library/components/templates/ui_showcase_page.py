@@ -57,11 +57,13 @@ from ..atoms import (
     text,
     textarea,
     tooltip,
+    voice_waveform,
     vstack,
 )
 from ..molecules import (
     BackgroundJob,
     BreadcrumbItem,
+    ChildEntry,
     FilterGroup,
     TagItem,
     Token,
@@ -69,6 +71,8 @@ from ..molecules import (
     action_card,
     auth_form,
     breadcrumbs,
+    carousel,
+    child_entries_section,
     completion_circle,
     dashboard_nav_card,
     dashboard_stat_card,
@@ -86,12 +90,14 @@ from ..molecules import (
     filter_bar,
     filter_panel,
     footer,
+    form_card_select,
     form_modal,
     hero_card,
     htmx_file_dropzone,
     htmx_pagination,
     htmx_tag_manager,
     icon_card,
+    image_uploader,
     item_details,
     job_status_banner,
     loading_screen,
@@ -103,9 +109,12 @@ from ..molecules import (
     search_bar,
     search_results,
     stat_card,
+    stats_chart,
     tab_state_wrapper,
     tag_manager,
     timeline_card,
+    timeline_event_card,
+    timeline_lane,
     token_pill,
     user_actions,
     user_nav,
@@ -245,6 +254,14 @@ def _atoms_showcase() -> Any:
                             ["Carol", badge("Error", variant="error"), "N/A"],
                         ],
                         striped=True,
+                    ),
+                ),
+                _showcase_card(
+                    "Voice Waveform",
+                    voice_waveform(
+                        height="40px",
+                        primary_color="var(--color-primary-500)",
+                        secondary_color="var(--color-secondary-500)",
                     ),
                 ),
                 gap=3,
@@ -627,6 +644,32 @@ def _molecules_showcase() -> Any:
                 ),
             ),
             _showcase_card(
+                "Carousel",
+                carousel(
+                    card(text("Slide 1 - First item"), style="padding: 2rem; text-align: center;"),
+                    card(text("Slide 2 - Second item"), style="padding: 2rem; text-align: center;"),
+                    card(text("Slide 3 - Third item"), style="padding: 2rem; text-align: center;"),
+                ),
+            ),
+            _showcase_card(
+                "Child Entries Section",
+                child_entries_section(
+                    entries=[
+                        ChildEntry(
+                            id="1", title="Subcategory A", description="First subcategory", href="#"
+                        ),
+                        ChildEntry(
+                            id="2",
+                            title="Subcategory B",
+                            description="Second subcategory",
+                            href="#",
+                        ),
+                    ],
+                    title="Sub-Categories",
+                    empty_message="No subcategories yet",
+                ),
+            ),
+            _showcase_card(
                 "Completion Circle",
                 completion_circle("Book 1", percentage=45, subtitle="Draft Completion"),
             ),
@@ -782,6 +825,19 @@ def _molecules_showcase() -> Any:
                 footer(),
             ),
             _showcase_card(
+                "Form Card Select",
+                form_card_select(
+                    name="story_format",
+                    options=[
+                        {"value": "novel", "label": "Novel", "icon": "📖"},
+                        {"value": "screenplay", "label": "Screenplay", "icon": "🎬"},
+                        {"value": "short", "label": "Short Story", "icon": "📝"},
+                    ],
+                    selected="novel",
+                    label="Story Format",
+                ),
+            ),
+            _showcase_card(
                 "Form Modal",
                 vstack(
                     form_modal(
@@ -867,6 +923,19 @@ def _molecules_showcase() -> Any:
                     ),
                     columns=2,
                     gap="1rem",
+                ),
+            ),
+            _showcase_card(
+                "Image Uploader",
+                image_uploader(
+                    entity_type="character",
+                    entity_id="char-123",
+                    project_id="proj-456",
+                    current_image_url="https://ui-avatars.com/api/?name=Demo",
+                    image_type="avatar",
+                    label="Character Avatar",
+                    form_id="demo-form",
+                    field_name="avatar_url",
                 ),
             ),
             _showcase_card(
@@ -1006,6 +1075,14 @@ def _molecules_showcase() -> Any:
                 ),
             ),
             _showcase_card(
+                "Stats Chart",
+                stats_chart(
+                    label_top="Speed",
+                    label_left="Power",
+                    label_right="Skill",
+                ),
+            ),
+            _showcase_card(
                 "Tab State Wrapper",
                 vstack(
                     text("Loading state:", variant="caption"),
@@ -1050,6 +1127,37 @@ def _molecules_showcase() -> Any:
                     ),
                     gap=3,
                     style="flex-wrap: wrap;",
+                ),
+            ),
+            _showcase_card(
+                "Timeline Event Card",
+                timeline_event_card(
+                    event_id="evt-1",
+                    title="Battle of Winterfell",
+                    event_type="Battle",
+                    date="Year 305",
+                    description="Epic confrontation in the frozen north",
+                    view_url="/timeline/evt-1",
+                ),
+            ),
+            _showcase_card(
+                "Timeline Lane",
+                timeline_lane(
+                    title="Main Story Arc",
+                    items=[
+                        {
+                            "title": "Beginning",
+                            "date": "Day 1",
+                            "icon_color": "var(--color-blue-500)",
+                            "href": "#",
+                        },
+                        {
+                            "title": "Conflict",
+                            "date": "Day 10",
+                            "icon_color": "var(--color-red-500)",
+                            "href": "#",
+                        },
+                    ],
                 ),
             ),
             _showcase_card(

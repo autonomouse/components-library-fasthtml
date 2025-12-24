@@ -21,6 +21,7 @@ from .file_dropzone import file_dropzone
 from .file_upload_progress import file_upload_progress
 from .filter_bar import filter_bar
 from .filter_panel import FilterGroup, filter_panel
+from .focal_point_picker_htmx import focal_point_picker_htmx
 from .footer import footer
 from .form_card_select import form_card_select
 from .form_modal import form_modal
@@ -41,6 +42,7 @@ from .scene_card import scene_card
 from .search_bar import search_bar
 from .search_results import search_results
 from .stat_card import stat_card
+from .stats_chart import stats_chart
 from .tab_state_wrapper import tab_state_wrapper
 from .tag_manager import TagItem, tag_manager
 from .timeline_card import timeline_card
@@ -81,6 +83,7 @@ __all__ = [
     "file_upload_progress",
     "filter_bar",
     "filter_panel",
+    "focal_point_picker_htmx",
     "footer",
     "form_card_select",
     "form_modal",
@@ -101,6 +104,7 @@ __all__ = [
     "search_bar",
     "search_results",
     "stat_card",
+    "stats_chart",
     "tab_state_wrapper",
     "tag_manager",
     "timeline_card",
