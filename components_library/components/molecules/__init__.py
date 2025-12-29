@@ -1,5 +1,3 @@
-"""Molecular components - combinations of atoms."""
-
 from .action_card import action_card
 from .auth_form import auth_form
 from .breadcrumbs import BreadcrumbItem, breadcrumbs
@@ -12,7 +10,7 @@ from .date_range_inputs import date_range_inputs
 from .detail_row import detail_row
 from .details_section import details_section
 from .discrete_slider import discrete_slider
-from .editable_heading import editable_heading
+from .editable_header import editable_header
 from .enhanced_search_bar import enhanced_search_bar
 from .entity_card import entity_card
 from .error_fallback import error_fallback
@@ -53,7 +51,6 @@ from .user_actions import UserAction, user_actions
 from .user_nav import user_nav
 
 __all__ = [
-    # Data classes
     "BackgroundJob",
     "BreadcrumbItem",
     "ChildEntry",
@@ -61,7 +58,6 @@ __all__ = [
     "TagItem",
     "Token",
     "UserAction",
-    # Components
     "action_card",
     "auth_form",
     "breadcrumbs",
@@ -74,7 +70,7 @@ __all__ = [
     "detail_row",
     "details_section",
     "discrete_slider",
-    "editable_heading",
+    "editable_header",
     "enhanced_search_bar",
     "entity_card",
     "error_fallback",

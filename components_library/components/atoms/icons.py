@@ -229,6 +229,12 @@ ICON_AUDIO = """<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="no
 <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
 </svg>"""
 
+# Edit/Pencil icon
+ICON_EDIT = """<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+<path d="m15 5 4 4"/>
+</svg>"""
+
 # =============================================================================
 # Icon Name Registry - maps friendly names to icon constants
 # =============================================================================
@@ -265,6 +271,7 @@ ICON_REGISTRY: dict[str, str] = {
     "book": ICON_BOOK,
     "script": ICON_SCRIPT,
     "audio": ICON_AUDIO,
+    "edit": ICON_EDIT,
 }
 
 
@@ -346,5 +353,6 @@ IconName = Literal[
     "book",
     "script",
     "audio",
+    "edit",
 ]
 """Type alias for valid icon names."""

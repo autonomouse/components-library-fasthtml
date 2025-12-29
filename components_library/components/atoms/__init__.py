@@ -14,6 +14,7 @@ from .chip_select import chip_select
 from .collapsible import collapsible
 from .confidence_score import confidence_score
 from .date_input import date_input
+from .editable_heading import editable_heading
 from .empty_state import empty_state
 from .field import field
 from .flex import flex
@@ -131,6 +132,7 @@ __all__ = [
     "collapsible",
     "confidence_score",
     "date_input",
+    "editable_heading",
     "empty_state",
     # Forms
     "field",

@@ -16,9 +16,12 @@ def editable_heading(
     target: str | None = None,
     placeholder: str = "",
     level: int = 1,
+    multiline: bool = False,
+    rows: int = 3,
+    font_weight: str | int = "800",
     cls: str | None = None,
     **kwargs: Any,
-) -> Input:
+) -> Any:
     """
     An input field styled to look like a heading, for inline editing.
 
@@ -29,11 +32,14 @@ def editable_heading(
         target: HTMX target selector (for swap)
         placeholder: Placeholder text
         level: Heading level (1-6) affecting font size
+        multiline: Whether to use a textarea instead of input
+        rows: Number of rows for textarea (if multiline=True)
+        font_weight: Font weight (default 800)
         cls: Additional CSS classes
         **kwargs: Additional HTML attributes
 
     Returns:
-        Input element styled as a heading
+        Input or Textarea element styled as a heading
     """
     # Font sizes based on level (approximate tailwind/standard sizes)
     font_sizes = {
@@ -48,32 +54,45 @@ def editable_heading(
 
     base_style = f"""
         font-size: {font_size};
-        font-weight: 800;
+        font-weight: {font_weight};
         background: transparent;
-        border: none;
-        border-bottom: 2px solid transparent;
+        border: 1px solid transparent;
+        border-radius: 4px;
         color: white;
         width: 100%;
-        padding: 0;
-        margin: 0;
+        padding: 2px 4px;
+        margin: -2px -4px;
         outline: none;
-        transition: border-color 0.2s;
+        transition: border-color 0.2s, background-color 0.2s;
     """
 
     # Merge with any style in kwargs
     if "style" in kwargs:
         base_style = f"{base_style} {kwargs.pop('style')}"
 
-    return Input(
-        type="text",
-        name=name,
-        value=value,
-        placeholder=placeholder,
-        style=base_style,
-        hx_post=post_url,
-        hx_trigger="blur changed, keydown[key=='Enter']",
-        hx_target=target,
-        hx_swap="outerHTML",
-        cls=merge_classes("editable-heading", cls),
+    # Common attributes
+    attrs = {
+        "name": name,
+        "placeholder": placeholder,
+        "style": base_style,
+        "hx_post": post_url,
+        "hx_target": target,
+        "hx_swap": "outerHTML",
+        "cls": merge_classes("editable-heading", cls),
         **kwargs,
-    )
+    }
+
+    if multiline:
+        from fasthtml.common import Textarea
+
+        # For textarea, we want to trigger on blur (change)
+        attrs["hx_trigger"] = "blur"
+        return Textarea(
+            value or "",  # Textarea uses children or value, but safely pass content
+            rows=rows,
+            **attrs,
+        )
+    else:
+        # For input, trigger on blur or Enter
+        attrs["hx_trigger"] = "blur, keydown[key=='Enter']"
+        return Input(type="text", value=value, **attrs)
