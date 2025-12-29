@@ -5,8 +5,120 @@ from typing import Any
 from fasthtml.common import A, Div
 
 from ...components.atoms.heading import heading
+from ...components.atoms.icon import icon
 from ...components.atoms.text import text
 from ...utils import generate_style_string
+
+
+def _stats_row(stats: list[dict]) -> Div:
+    """Render a row of statistic icons with counts."""
+    items = []
+
+    for stat in stats:
+        # Create stat item: Icon with Count below it
+        item = Div(
+            icon(
+                stat.get("icon", "circle"),
+                size="sm",
+                style=f"color: {stat.get('color', 'var(--theme-accent-primary, #3b82f6)')}; margin-bottom: 4px;",
+            ),
+            text(
+                str(stat.get("count", 0)),
+                style="color: white; font-weight: 600; font-size: 1rem; line-height: 1;",
+            ),
+            title=f"{stat.get('label', '')}: {stat.get('count', 0)}",
+            style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 40px;",
+        )
+        items.append(item)
+
+    return Div(*items, style="display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap;")
+
+
+def nav_card(
+    title: str,
+    description: str,
+    href: str,
+    preview_images: list[str | None] | None = None,
+    preview_names: list[str] | None = None,
+    preview_focal_points: list[tuple[int, int]] | None = None,
+    stats_breakdown: list[dict] | None = None,
+    **kwargs: Any,
+) -> Any:
+    """
+    A navigation card component with optional stacked preview images.
+
+    Args:
+        title: Card title
+        description: Card description (fallback)
+        href: Link URL
+        preview_images: Optional list of image URLs to show as stacked avatars
+        preview_names: Optional list of names for initials fallback
+        preview_focal_points: Optional list of (x, y) tuples for background position
+        stats_breakdown: Optional list of stats {label, count, icon, color}
+        **kwargs: Additional HTML attributes
+
+    Returns:
+        Anchor component
+    """
+    base_style = generate_style_string(
+        background="rgba(17, 24, 39, 0.4)",
+        backdrop_filter="blur(12px)",
+        border="1px solid rgba(55, 65, 81, 0.5)",
+        border_radius="12px",
+        padding="1.5rem",
+        transition="all 0.3s ease",
+        display="block",
+        text_decoration="none",
+        height="100%",
+        cursor="pointer",
+    )
+
+    # Merge custom style if provided
+    custom_style = kwargs.pop("style", "")
+    style = f"{base_style} {custom_style}"
+
+    content = []
+
+    # Add fanned card stack if preview data provided
+    if preview_images or preview_names:
+        images = preview_images or []
+        names = preview_names or []
+        focal_points = preview_focal_points or []
+        # Ensure we have at least placeholder data
+        if not images and names:
+            images = [None] * len(names)
+        content.append(_card_stack(images, names, focal_points))
+    else:
+        # Reserve space for layout consistency
+        content.append(Div(style="height: 90px; margin-bottom: 0.75rem;"))
+
+    content.append(
+        heading(
+            title,
+            level=3,
+            style="font-size: 1.25rem; font-weight: bold; color: var(--theme-text-primary, white); margin-bottom: 0.5rem;",
+        )
+    )
+
+    if stats_breakdown:
+        # Render dynamic stats row
+        content.append(_stats_row(stats_breakdown))
+    else:
+        # Fallback to simple text description
+        content.append(
+            text(
+                description,
+                style="color: var(--theme-text-secondary, #9ca3af); font-size: 0.875rem;",
+            )
+        )
+
+    return A(
+        *content,
+        href=href,
+        style=style,
+        cls="nav-card hover:bg-white/5",
+        **kwargs,
+    )
 
 
 def _card_stack(
@@ -105,80 +217,4 @@ def _card_stack(
     return Div(
         *children,
         style="display: flex; align-items: flex-end; margin-bottom: 0.75rem;",
-    )
-
-
-def nav_card(
-    title: str,
-    description: str,
-    href: str,
-    preview_images: list[str | None] | None = None,
-    preview_names: list[str] | None = None,
-    preview_focal_points: list[tuple[int, int]] | None = None,
-    **kwargs: Any,
-) -> Any:
-    """
-    A navigation card component with optional stacked preview images.
-
-    Args:
-        title: Card title
-        description: Card description
-        href: Link URL
-        preview_images: Optional list of image URLs to show as stacked avatars
-        preview_names: Optional list of names for initials fallback
-        preview_focal_points: Optional list of (x, y) tuples for background position
-        **kwargs: Additional HTML attributes
-
-    Returns:
-        Anchor component
-    """
-    base_style = generate_style_string(
-        background="rgba(17, 24, 39, 0.4)",
-        backdrop_filter="blur(12px)",
-        border="1px solid rgba(55, 65, 81, 0.5)",
-        border_radius="12px",
-        padding="1.5rem",
-        transition="all 0.3s ease",
-        display="block",
-        text_decoration="none",
-        height="100%",
-        cursor="pointer",
-    )
-
-    # Merge custom style if provided
-    custom_style = kwargs.pop("style", "")
-    style = f"{base_style} {custom_style}"
-
-    content = []
-
-    # Add fanned card stack if preview data provided
-    if preview_images or preview_names:
-        images = preview_images or []
-        names = preview_names or []
-        focal_points = preview_focal_points or []
-        # Ensure we have at least placeholder data
-        if not images and names:
-            images = [None] * len(names)
-        content.append(_card_stack(images, names, focal_points))
-
-    content.extend(
-        [
-            heading(
-                title,
-                level=3,
-                style="font-size: 1.25rem; font-weight: bold; color: var(--theme-text-primary, white); margin-bottom: 0.5rem;",
-            ),
-            text(
-                description,
-                style="color: var(--theme-text-secondary, #9ca3af); font-size: 0.875rem;",
-            ),
-        ]
-    )
-
-    return A(
-        *content,
-        href=href,
-        style=style,
-        cls="nav-card hover:bg-white/5",
-        **kwargs,
     )

@@ -24,6 +24,7 @@ def editable_header(
     font_weight: str | int = "800",
     text_clickable: bool = True,
     is_editing: bool = False,
+    max_lines: int | None = None,
     **kwargs: Any,
 ) -> Div:
     """
@@ -43,6 +44,7 @@ def editable_header(
         font_weight: Font weight for text and input
         text_clickable: Whether clicking the text itself triggers edit mode (default True)
         is_editing: Whether to render the editing view instead of the read view
+        max_lines: Max number of lines to show in read mode before truncating.
         **kwargs: Additional HTML attributes for the editable_heading
 
     Returns:
@@ -171,14 +173,63 @@ def editable_header(
             else {}
         )
 
-        content = [
-            Div(
-                value or placeholder,
-                style=text_style
-                if value
-                else f"{text_style} color: rgba(255,255,255,0.5); font-style: italic;",
+        text_container_id = f"{container_id}-text"
+
+        # Line clamping styles if max_lines is set
+        clamp_style = ""
+        expansion_ui = ""
+
+        if max_lines and value:
+            # We only add clamp styles initially
+            # We use a known ID to toggle it via inline script for simplicity
+            clamp_style = f"overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: {max_lines};"
+
+            # JS Exception: Toggling -webkit-line-clamp requires JavaScript. CSS-only alternatives
+            # (using :checked pseudo-class) would require restructuring the DOM significantly
+            # and wouldn't integrate well with the existing HTMX-based edit functionality.
+            # Note: We stop propagation to prevent triggering the edit mode if text_clickable is True
+            toggle_script = f"""
+                event.stopPropagation();
+                var el = document.getElementById('{text_container_id}');
+                if (el.style.webkitLineClamp && el.style.webkitLineClamp !== 'unset') {{
+                    el.style.webkitLineClamp = 'unset';
+                    this.textContent = 'Show less';
+                }} else {{
+                    el.style.webkitLineClamp = '{max_lines}';
+                    this.textContent = 'Read more';
+                }}
+            """
+
+            expansion_ui = kwargs.pop(
+                "expansion_trigger",
+                Div(
+                    "Read more",
+                    cls="text-xs cursor-pointer mt-2 font-bold uppercase tracking-wide hover:opacity-80 transition-opacity",
+                    onclick=toggle_script,
+                    style="display: inline-block; color: var(--theme-accent-primary);",
+                ),
             )
-        ]
+
+        content = (
+            [
+                Div(
+                    Div(
+                        value or placeholder,
+                        id=text_container_id,
+                        style=f"{text_style} {clamp_style}",
+                    ),
+                    expansion_ui if expansion_ui else "",
+                    style="flex: 1; min-width: 0;",  # Wrapper to hold text + expander
+                )
+            ]
+            if value
+            else [
+                Div(
+                    placeholder,
+                    style=f"{text_style} color: rgba(255,255,255,0.5); font-style: italic;",
+                )
+            ]
+        )
 
         # Edit Icon
         # If text is NOT clickable, the icon carries the HTMX trigger

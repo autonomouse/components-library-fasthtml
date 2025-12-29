@@ -147,11 +147,17 @@ def avatar(
 
     # Wrap in link if href provided
     if href:
+        # Accessible label for the link (since content might be just an image/div)
+        aria_label = (
+            f"Profile for {name}" if name else (f"Profile for {email}" if email else "User Profile")
+        )
+
         return A(
             avatar_container,
             href=href,
             cls="avatar-link",
             style="text-decoration: none;",
+            aria_label=aria_label,
         )
 
     return avatar_container

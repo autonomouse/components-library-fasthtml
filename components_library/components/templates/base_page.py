@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from fasthtml.common import Body, Head, Html, NotStr, Title
+from fasthtml.common import Body, Head, Html, Main, NotStr, Title
 
 from ...design_system.theme import (
     base_styles,
@@ -87,7 +87,7 @@ def base_page(
     return Html(
         Head(*head_elements),
         Body(
-            content,
+            Main(content),
             # Modal container for HTMX modals
             NotStr('<div id="modal-container"></div>'),
         ),

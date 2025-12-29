@@ -150,6 +150,8 @@ def image_uploader(
 
     # Action Buttons Row
     # 1. Upload Button
+    # JS Exception: Programmatically clicking a hidden file input is required because
+    # file inputs cannot be styled directly. No pure CSS/HTMX alternative exists.
     upload_btn = button(
         "Upload Image",
         variant="outline",

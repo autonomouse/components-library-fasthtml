@@ -112,6 +112,7 @@ from ..molecules import (
     htmx_pagination,
     htmx_tag_manager,
     icon_card,
+    image_montage,
     image_uploader,
     item_details,
     job_status_banner,
@@ -993,6 +994,23 @@ def _molecules_showcase() -> Any:
                 ),
             ),
             _showcase_card(
+                "Image Montage",
+                box(
+                    image_montage(
+                        images=[
+                            "https://picsum.photos/seed/a/200/200",
+                            "https://picsum.photos/seed/b/200/200",
+                            "https://picsum.photos/seed/c/200/200",
+                            "https://picsum.photos/seed/d/200/200",
+                        ],
+                        limit=4,
+                        opacity=0.8,
+                        filter_effect="none",
+                    ),
+                    style="height: 150px; position: relative; border-radius: 8px; overflow: hidden;",
+                ),
+            ),
+            _showcase_card(
                 "Image Uploader",
                 image_uploader(
                     entity_type="character",
@@ -1052,6 +1070,26 @@ def _molecules_showcase() -> Any:
                         "Navigation",
                         "A link to another page",
                         href="/example",
+                    ),
+                    nav_card(
+                        "Stats Nav",
+                        "With dynamic stats breakdown",
+                        href="#",
+                        stats_breakdown=[
+                            {
+                                "label": "Drafts",
+                                "count": 12,
+                                "icon": "file-text",
+                                "color": "#3b82f6",
+                            },
+                            {
+                                "label": "Reviews",
+                                "count": 5,
+                                "icon": "check-square",
+                                "color": "#22d3ee",
+                            },
+                            {"label": "Archive", "count": 2, "icon": "trash-2", "color": "#fb923c"},
+                        ],
                     ),
                     dashboard_nav_card(
                         "Dashboard Nav",
