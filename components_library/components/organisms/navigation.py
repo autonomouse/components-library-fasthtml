@@ -2,12 +2,18 @@
 
 from __future__ import annotations
 
+import inspect
 from typing import Any
 
 from fasthtml.common import Div, Nav
 from fasthtml.xtend import Style
 
-from ..atoms import avatar, button_link, flex, hstack, logo
+from ..atoms import avatar, badge, button_link, flex, hstack, logo
+
+try:
+    from storyvibe.config.settings import settings  # type: ignore
+except ImportError:
+    settings = None
 
 
 def navigation(
@@ -63,6 +69,19 @@ def navigation(
         )
     else:
         right_content = None
+
+    debug_badge = None
+    # Check for DEBUG env var (set by settings/dotenv)
+    if settings and getattr(settings, "debug", False):
+        # Find the calling page function by inspecting the stack
+        for frame_info in inspect.stack():
+            func_name = frame_info.function
+            # Look for typical page function naming conventions (e.g. story_timeline_page)
+            # We skip 'navigation' itself and 'base_page' or internal wrappers
+            if func_name.endswith("_page") and func_name != "base_page":
+                _info = f"DEBUG MODE: {func_name.replace('_', ' ')} (v{settings.app_version})"
+                debug_badge = badge(_info, variant="error", size="sm")
+                break
 
     # Mobile navigation styles using CSS-only approach
     mobile_nav_styles = Style("""
@@ -170,8 +189,11 @@ def navigation(
                     size="lg",
                     href="/" if not user else "/app",
                 ),
+                # Render debug badge if active
+                debug_badge if debug_badge else None,
                 align="center",
                 cls="nav-brand",
+                gap="2",
             ),
             # Desktop navigation links (hidden on mobile)
             flex(

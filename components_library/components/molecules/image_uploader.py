@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, cast
 from uuid import uuid4
 
 from fasthtml.common import Div, Img, Input
@@ -154,7 +154,7 @@ def image_uploader(
         "Upload Image",
         variant="outline",
         size="sm",
-        **{"onclick": f"document.getElementById('{upload_id}').click()"},
+        **cast(Any, {"onclick": f"document.getElementById('{upload_id}').click()"}),
         disabled=disabled,
     )
 
@@ -169,13 +169,16 @@ def image_uploader(
             style="opacity: 0.5; cursor: not-allowed;"
             if not (current_image_url and image_id)
             else "",
-            **{
-                "hx-get": f"/api/images/{image_id}/focal-point-modal",
-                "hx-target": "#modal-container",
-                "hx-swap": "innerHTML",
-            }
-            if current_image_url and image_id
-            else {},
+            **cast(
+                Any,
+                {
+                    "hx-get": f"/api/images/{image_id}/focal-point-modal",
+                    "hx-target": "#modal-container",
+                    "hx-swap": "innerHTML",
+                }
+                if current_image_url and image_id
+                else {},
+            ),
         )
 
     # 3. View Full Image
@@ -185,13 +188,16 @@ def image_uploader(
         size="sm",
         disabled=not (current_image_url and image_id),
         style="opacity: 0.5; cursor: not-allowed;" if not (current_image_url and image_id) else "",
-        **{
-            "hx-get": f"/api/images/{image_id}/view-modal",
-            "hx-target": "#modal-container",
-            "hx-swap": "innerHTML",
-        }
-        if current_image_url and image_id
-        else {},
+        **cast(
+            Any,
+            {
+                "hx-get": f"/api/images/{image_id}/view-modal",
+                "hx-target": "#modal-container",
+                "hx-swap": "innerHTML",
+            }
+            if current_image_url and image_id
+            else {},
+        ),
     )
 
     # Combine into row
