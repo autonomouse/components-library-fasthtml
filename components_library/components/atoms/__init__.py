@@ -70,6 +70,27 @@ from .select import select
 from .separator import separator
 from .skeleton import skeleton
 from .slider import slider
+from .specific_icons import (
+    book_open_icon,
+    check_icon,
+    checkbox_icon,
+    clapperboard_icon,
+    close_icon,
+    edit_icon,
+    eye_icon,
+    file_text_icon,
+    filter_icon,
+    image_icon,
+    layout_dashboard_icon,
+    map_pin_icon,
+    more_vertical_icon,
+    plus_icon,
+    search_icon,
+    settings_icon,
+    star_icon,
+    trash_icon,
+    user_icon,
+)
 from .spinner import spinner
 from .stack import hstack, vstack
 from .switch import switch
@@ -120,6 +141,8 @@ __all__ = [
     "autocomplete_input",
     "avatar",
     "badge",
+    # Specific Icons
+    "book_open_icon",
     # Layout
     "box",
     # Buttons
@@ -127,15 +150,23 @@ __all__ = [
     "button_link",
     # Data Display
     "card",
+    "check_icon",
     "checkbox",
+    "checkbox_icon",
     "chip_select",
+    "clapperboard_icon",
+    "close_icon",
     "collapsible",
     "confidence_score",
     "date_input",
+    "edit_icon",
     "editable_heading",
     "empty_state",
+    "eye_icon",
     # Forms
     "field",
+    "file_text_icon",
+    "filter_icon",
     "flex",
     "grid",
     # Typography
@@ -144,25 +175,33 @@ __all__ = [
     # Icons
     "icon",
     "icon_button",
+    "image_icon",
     "input",
+    "layout_dashboard_icon",
     "link",
     "logical_operator",
     "logo",
+    "map_pin_icon",
     "menu",
     "menu_divider",
     "menu_item",
     # Overlay
     "modal",
+    "more_vertical_icon",
     "pagination",
+    "plus_icon",
     "popover",
     "progress",
     "radio",
     "responsive_text",
+    "search_icon",
     "select",
     "separator",
+    "settings_icon",
     "skeleton",
     "slider",
     "spinner",
+    "star_icon",
     "svg_icon",
     "switch",
     "tab_panel",
@@ -172,6 +211,8 @@ __all__ = [
     "text",
     "textarea",
     "tooltip",
+    "trash_icon",
+    "user_icon",
     "voice_waveform",
     "vstack",
 ]

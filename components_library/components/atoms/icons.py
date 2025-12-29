@@ -235,6 +235,96 @@ ICON_EDIT = """<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="non
 <path d="m15 5 4 4"/>
 </svg>"""
 
+# File Text icon
+ICON_FILE_TEXT = """<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/>
+<path d="M14 2v4a2 2 0 0 0 2 2h4"/>
+<path d="M10 9H8"/>
+<path d="M16 13H8"/>
+<path d="M16 17H8"/>
+</svg>"""
+
+# Map Pin icon
+ICON_MAP_PIN = """<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+<circle cx="12" cy="10" r="3"/>
+</svg>"""
+
+# Book Open icon
+ICON_BOOK_OPEN = """<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+<path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+</svg>"""
+
+# Trash 2 icon
+ICON_TRASH_2 = """<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M3 6h18"/>
+<path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+<path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+<line x1="10" x2="10" y1="11" y2="17"/>
+<line x1="14" x2="14" y1="11" y2="17"/>
+</svg>"""
+
+# Eye icon
+ICON_EYE = """<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+<circle cx="12" cy="12" r="3"/>
+</svg>"""
+
+# Eye Off icon
+ICON_EYE_OFF = """<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/>
+<path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/>
+<path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7c.44 0 .87-.03 1.28-.09"/>
+<path d="M2 2l20 20"/>
+</svg>"""
+
+# More Vertical icon
+ICON_MORE_VERTICAL = """<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="12" cy="12" r="1"/>
+<circle cx="12" cy="5" r="1"/>
+<circle cx="12" cy="19" r="1"/>
+</svg>"""
+
+# Check Square icon
+ICON_CHECK_SQUARE = """<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="m9 11 3 3L22 4"/>
+<path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+</svg>"""
+
+# Square icon
+ICON_SQUARE = """<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<rect width="18" height="18" x="3" y="3" rx="2"/>
+</svg>"""
+
+# Layout Dashboard icon
+ICON_LAYOUT_DASHBOARD = """<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<rect width="7" height="9" x="3" y="3" rx="1"/>
+<rect width="7" height="5" x="14" y="3" rx="1"/>
+<rect width="7" height="9" x="14" y="12" rx="1"/>
+<rect width="7" height="5" x="3" y="16" rx="1"/>
+</svg>"""
+
+# Image icon
+ICON_IMAGE = """<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
+<circle cx="9" cy="9" r="2"/>
+<path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+</svg>"""
+
+# Clapperboard icon
+ICON_CLAPPERBOARD = """<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M20.2 6 3 11l-.9-2.4c-.5-1.1.2-2.3 1.3-2.8l3.2-1.2c1.1-.5 2.3.2 2.8 1.3l.9 2.4"/>
+<path d="m13.7 4.5 2 5"/>
+<path d="m10 6 2 5"/>
+<path d="m6.3 7.5 2 5"/>
+</svg>"""
+
+# Star icon
+ICON_STAR = """<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+</svg>"""
+
 # =============================================================================
 # Icon Name Registry - maps friendly names to icon constants
 # =============================================================================
@@ -272,6 +362,20 @@ ICON_REGISTRY: dict[str, str] = {
     "script": ICON_SCRIPT,
     "audio": ICON_AUDIO,
     "edit": ICON_EDIT,
+    "file-text": ICON_FILE_TEXT,
+    "map-pin": ICON_MAP_PIN,
+    "book-open": ICON_BOOK_OPEN,
+    "trash-2": ICON_TRASH_2,
+    "trash": ICON_TRASH_2,  # Alias
+    "eye": ICON_EYE,
+    "eye-off": ICON_EYE_OFF,
+    "more-vertical": ICON_MORE_VERTICAL,
+    "check-square": ICON_CHECK_SQUARE,
+    "square": ICON_SQUARE,
+    "layout-dashboard": ICON_LAYOUT_DASHBOARD,
+    "image": ICON_IMAGE,
+    "clapperboard": ICON_CLAPPERBOARD,
+    "star": ICON_STAR,
 }
 
 
@@ -354,5 +458,19 @@ IconName = Literal[
     "script",
     "audio",
     "edit",
+    "file-text",
+    "map-pin",
+    "book-open",
+    "trash-2",
+    "trash",
+    "eye",
+    "eye-off",
+    "more-vertical",
+    "check-square",
+    "square",
+    "layout-dashboard",
+    "image",
+    "clapperboard",
+    "star",
 ]
 """Type alias for valid icon names."""

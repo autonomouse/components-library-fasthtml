@@ -189,11 +189,27 @@ def editable_header(
         )
 
         content.append(
-            icon(
-                "edit",
-                size="sm",
-                cls=f"{icon_class} edit-icon",
-                style=f"margin-top: calc({font_size} * 0.15); min-width: 20px; cursor: pointer;",
+            Div(
+                icon(
+                    "edit",
+                    size="sm",
+                    cls=f"{icon_class} edit-icon",
+                    style="color: var(--theme-accent-primary);",
+                ),
+                style=f"""
+                    margin-top: calc({font_size} * 0.1);
+                    min-width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.05);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                """,
+                cls="hover:bg-white/10 hover:border-white/20",
                 **icon_htmx_attrs,
             )
         )

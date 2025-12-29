@@ -32,15 +32,21 @@ def icon_card(
         **kwargs: Additional HTML attributes
     """
     # Icon with glow
-    # Using a container for the glow effect
-    icon_container_style = f"""
-        color: {icon_color};
-        filter: drop-shadow(0 0 8px {icon_color});
-        margin-bottom: 1rem;
-    """
-
     icon_component = Div(
-        icon(name=icon_name, size="lg", stroke_width=1.5), style=icon_container_style
+        icon(name=icon_name, size="lg", stroke_width=1.5),
+        style=f"""
+            color: {icon_color};
+            margin-bottom: 1rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        """,
     )
 
     # Badge (optional)

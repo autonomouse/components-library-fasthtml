@@ -88,7 +88,20 @@ def _child_card(entry: ChildEntry) -> Any:
         # Card without image - icon-based
         card_content = Div(
             vstack(
-                icon(entry.icon_name, size="md", style="color: var(--theme-accent-primary);"),
+                Div(
+                    icon(entry.icon_name, size="md", style="color: var(--theme-accent-primary);"),
+                    style="""
+                        width: 48px;
+                        height: 48px;
+                        border-radius: 50%;
+                        background: rgba(255, 255, 255, 0.05);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border: 1px solid rgba(255, 255, 255, 0.1);
+                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    """,
+                ),
                 heading(
                     entry.title,
                     level=4,

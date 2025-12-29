@@ -231,7 +231,19 @@ def relationship_board(
         Div(
             vstack(
                 flex(
-                    icon("plus-circle", size="lg", style="color: var(--theme-accent-primary);"),
+                    Div(
+                        icon("plus", size="lg", style="color: var(--theme-accent-primary);"),
+                        style="""
+                            width: 48px;
+                            height: 48px;
+                            border-radius: 50%;
+                            background: rgba(255, 255, 255, 0.05);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border: 1px solid rgba(255, 255, 255, 0.1);
+                        """,
+                    ),
                     heading(
                         "New Group",
                         level=4,
