@@ -107,13 +107,17 @@ from ..molecules import (
     footer,
     form_card_select,
     form_modal,
+    hero_banner,
     hero_card,
+    highlight_text,
     htmx_file_dropzone,
     htmx_pagination,
     htmx_tag_manager,
     icon_card,
+    image_card,
     image_montage,
     image_uploader,
+    info_panel,
     item_details,
     job_status_banner,
     loading_screen,
@@ -932,6 +936,26 @@ def _molecules_showcase() -> Any:
                 ),
             ),
             _showcase_card(
+                "Hero Banner",
+                vstack(
+                    hero_banner(
+                        "Welcome to the App",
+                        subtitle="Full-width banner with background image overlay",
+                        background_color="linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                        min_height="200px",
+                    ),
+                    text("With background image:", variant="caption"),
+                    hero_banner(
+                        "Featured Content",
+                        "Supports images, custom overlays, and additional content",
+                        button("Learn More", variant="solid", size="sm"),
+                        background_image="https://picsum.photos/seed/banner/1200/400",
+                        min_height="150px",
+                    ),
+                    gap=3,
+                ),
+            ),
+            _showcase_card(
                 "Hero Card",
                 grid(
                     hero_card(
@@ -948,6 +972,25 @@ def _molecules_showcase() -> Any:
                     ),
                     columns=2,
                     gap="1rem",
+                ),
+            ),
+            _showcase_card(
+                "Highlight Text",
+                vstack(
+                    text("Inline highlights for emphasizing text within content:"),
+                    hstack(
+                        text("Total budget:"),
+                        highlight_text("$5,000", variant="yellow"),
+                        gap=2,
+                    ),
+                    hstack(
+                        text("Status:"),
+                        highlight_text("Active", variant="green"),
+                        highlight_text("Pending", variant="blue"),
+                        highlight_text("Important", variant="purple"),
+                        gap=2,
+                    ),
+                    gap=3,
                 ),
             ),
             _showcase_card(
@@ -994,6 +1037,27 @@ def _molecules_showcase() -> Any:
                 ),
             ),
             _showcase_card(
+                "Image Card",
+                grid(
+                    image_card(
+                        "Tokyo Tower",
+                        image_url="https://picsum.photos/seed/tokyo/400/200",
+                        badge_text="Day 1",
+                        description="Visit the iconic Tokyo Tower for panoramic city views.",
+                        href="#",
+                    ),
+                    image_card(
+                        "Mount Fuji",
+                        image_url="https://picsum.photos/seed/fuji/400/200",
+                        badge_text="Featured",
+                        badge_position="top-right",
+                        description="Japan's highest peak and most iconic landmark.",
+                    ),
+                    columns=2,
+                    gap="1rem",
+                ),
+            ),
+            _showcase_card(
                 "Image Montage",
                 box(
                     image_montage(
@@ -1021,6 +1085,37 @@ def _molecules_showcase() -> Any:
                     label="Character Avatar",
                     form_id="demo-form",
                     field_name="avatar_url",
+                ),
+            ),
+            _showcase_card(
+                "Info Panel",
+                vstack(
+                    info_panel(
+                        text("This is a default info panel for general information."),
+                        title="Information",
+                        variant="default",
+                    ),
+                    info_panel(
+                        text("Important note displayed in an info-styled panel."),
+                        title="Note",
+                        variant="info",
+                    ),
+                    info_panel(
+                        text("Operation completed successfully!"),
+                        title="Success",
+                        variant="success",
+                    ),
+                    info_panel(
+                        text("Please review before proceeding."),
+                        title="Warning",
+                        variant="warning",
+                    ),
+                    info_panel(
+                        text("Featured content with accent styling."),
+                        title="Highlight",
+                        variant="highlight",
+                    ),
+                    gap=3,
                 ),
             ),
             _showcase_card(

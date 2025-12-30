@@ -23,12 +23,15 @@ from .focal_point_picker_htmx import focal_point_picker_htmx
 from .footer import footer
 from .form_card_select import form_card_select
 from .form_modal import form_modal
+from .hero_banner import hero_banner
 from .hero_card import hero_card
 from .htmx_file_dropzone import htmx_file_dropzone
 from .htmx_tag_manager import htmx_tag_manager
 from .icon_card import icon_card
+from .image_card import image_card
 from .image_montage import image_montage
 from .image_uploader import image_uploader
+from .info_panel import highlight_text, info_panel
 from .item_details import item_details
 from .job_status_banner import BackgroundJob, job_status_banner
 from .loading_screen import loading_screen
@@ -84,13 +87,17 @@ __all__ = [
     "footer",
     "form_card_select",
     "form_modal",
+    "hero_banner",
     "hero_card",
+    "highlight_text",
     "htmx_file_dropzone",
     "htmx_pagination",
     "htmx_tag_manager",
     "icon_card",
+    "image_card",
     "image_montage",
     "image_uploader",
+    "info_panel",
     "item_details",
     "job_status_banner",
     "loading_screen",
