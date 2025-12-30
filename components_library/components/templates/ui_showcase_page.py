@@ -100,6 +100,7 @@ from ..molecules import (
     entity_card,
     error_fallback,
     favorite_button,
+    feature_item,
     file_dropzone,
     file_upload_progress,
     filter_bar,
@@ -135,6 +136,7 @@ from ..molecules import (
     timeline_card,
     timeline_event_card,
     timeline_lane,
+    tips_list,
     token_pill,
     user_actions,
     user_nav,
@@ -840,6 +842,23 @@ def _molecules_showcase() -> Any:
                 ),
             ),
             _showcase_card(
+                "Feature Item",
+                vstack(
+                    feature_item(
+                        "Golden Pavilion",
+                        "Stunning temple reflected in a tranquil pond",
+                        note="Most beautiful on clear sunny days",
+                    ),
+                    feature_item(
+                        "Bamboo Grove",
+                        "Towering bamboo forests that seem to touch the sky",
+                        note="Visit at dawn to avoid crowds",
+                        note_prefix="Pro tip: ",
+                    ),
+                    gap=3,
+                ),
+            ),
+            _showcase_card(
                 "File Dropzone",
                 file_dropzone(accept=".csv,.xlsx", accepted_formats="CSV, Excel", max_size="10MB"),
             ),
@@ -1358,6 +1377,19 @@ def _molecules_showcase() -> Any:
                             "href": "#",
                         },
                     ],
+                ),
+            ),
+            _showcase_card(
+                "Tips List",
+                tips_list(
+                    [
+                        "Book tickets in advance for popular attractions",
+                        "Arrive early to avoid crowds",
+                        "Bring comfortable walking shoes",
+                        "Check weather forecasts before outdoor activities",
+                    ],
+                    title="Pro Tips",
+                    icon="✨",
                 ),
             ),
             _showcase_card(

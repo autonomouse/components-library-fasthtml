@@ -15,6 +15,7 @@ from .enhanced_search_bar import enhanced_search_bar
 from .entity_card import entity_card
 from .error_fallback import error_fallback
 from .favorite_button import favorite_button
+from .feature_item import feature_item
 from .file_dropzone import file_dropzone
 from .file_upload_progress import file_upload_progress
 from .filter_bar import filter_bar
@@ -50,6 +51,7 @@ from .tag_manager import TagItem, tag_manager
 from .timeline_card import timeline_card
 from .timeline_event_card import timeline_event_card
 from .timeline_lane import timeline_lane
+from .tips_list import tips_list
 from .token_pill import Token, token_pill
 from .user_actions import UserAction, user_actions
 from .user_nav import user_nav
@@ -79,6 +81,7 @@ __all__ = [
     "entity_card",
     "error_fallback",
     "favorite_button",
+    "feature_item",
     "file_dropzone",
     "file_upload_progress",
     "filter_bar",
@@ -115,6 +118,7 @@ __all__ = [
     "timeline_card",
     "timeline_event_card",
     "timeline_lane",
+    "tips_list",
     "token_pill",
     "user_actions",
     "user_nav",
